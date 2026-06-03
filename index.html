@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Minecraft JS - Criativo Infinito Pro</title>
+    <title>Minecraft JS - Criativo Infinito Pro Ultra</title>
     <!-- Tailwind CSS para estilização moderna -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font-Awesome para ícones do menu -->
@@ -53,7 +53,7 @@
             background-size: 64px 64px;
             image-rendering: pixelated;
         }
-        /* Crosshair central do Minecraft */
+        /* Crosshair central */
         #crosshair {
             width: 20px;
             height: 20px;
@@ -76,7 +76,7 @@
         #crosshair::after {
             top: 9px; left: 0; width: 20px; height: 2px;
         }
-        /* Hotbar estilizada */
+        /* Hotbar */
         .hotbar-slot {
             transition: transform 0.15s ease, border-color 0.15s ease;
             image-rendering: pixelated;
@@ -86,9 +86,9 @@
             transform: scale(1.1);
             z-index: 10;
         }
-        /* Estilos dos Joysticks e botões de toque */
+        /* Joysticks */
         .touch-btn {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             display: flex;
@@ -99,8 +99,8 @@
             -webkit-user-select: none;
         }
         .touch-btn:active {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.7);
         }
         .pixel-texture-preview {
             image-rendering: pixelated;
@@ -112,16 +112,15 @@
 </head>
 <body class="bg-black select-none text-white font-sans">
 
-    <!-- MENU DE BOAS VINDAS -->
     <div id="welcome-menu" class="absolute inset-0 bg-minecraft-dirt z-50 flex flex-col justify-between p-6 overflow-y-auto">
         
         <!-- Header / Logo -->
         <div class="flex flex-col items-center mt-8 text-center">
-            <h1 class="font-minecraft text-4xl md:text-6xl text-shadow font-bold tracking-wider text-[#81c784] drop-shadow-[0_5px_0_rgba(27,94,32,1)] uppercase">
+            <h1 class="font-minecraft text-3xl md:text-5xl text-shadow font-bold tracking-wider text-[#81c784] drop-shadow-[0_5px_0_rgba(27,94,32,1)] uppercase">
                 MINECRAFT
             </h1>
-            <div class="font-minecraft text-xl md:text-2xl text-yellow-400 mt-2 rotate-[-3deg] animate-pulse">
-                JS - MUNDO INFINITO PRO!
+            <div class="font-minecraft text-lg md:text-xl text-yellow-400 mt-2 rotate-[-3deg] animate-pulse">
+                JS - ULTRA OTIMIZADO!
             </div>
         </div>
 
@@ -130,50 +129,61 @@
             
             <!-- Caixa de Boas-Vindas e Status -->
             <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 text-center">
-                <p class="text-sm md:text-base text-gray-300">
-                    Explore mundos procedurais com o novo sistema de <b>Seeds</b>, água física que escorre com limite de altura, oclusão de renderização para zero travamentos e controles de clique corrigidos contra furos e blocos infinitos!
+                <p class="text-xs md:text-sm text-gray-300">
+                    Otimizado no nível de hardware! Renderização inteligente por Chunks, descarte de geometrias ocluidas de alta performance e salvamento instantâneo do mundo.
                 </p>
                 <div id="auth-status" class="mt-2 flex items-center justify-center gap-2 text-xs text-yellow-500 font-semibold">
                     <i class="fa-solid fa-cloud"></i>
-                    <span>Iniciando sincronização em nuvem...</span>
+                    <span>Iniciando armazenamento persistente local...</span>
+                </div>
+            </div>
+
+            <!-- SELETOR MANUAL DE MODO (PC / MOBILE) -->
+            <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 flex flex-col gap-2">
+                <span class="font-minecraft text-[10px] md:text-xs text-yellow-400 text-center block mb-1">Escolha seu tipo de controle:</span>
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="btn-set-pc" onclick="setControlModeManual('pc')" class="py-2 btn-minecraft font-minecraft text-[10px] rounded text-white border-yellow-500">
+                        🖥️ PC (WASD/Mouse)
+                    </button>
+                    <button id="btn-set-mobile" onclick="setControlModeManual('mobile')" class="py-2 btn-minecraft font-minecraft text-[10px] rounded text-white opacity-60">
+                        📱 Toque (Celular)
+                    </button>
                 </div>
             </div>
 
             <!-- Lista de Mundos Salvos -->
             <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 flex flex-col gap-3">
                 <div class="flex justify-between items-center border-b border-[#3a3a3a] pb-2">
-                    <span class="font-minecraft text-xs text-gray-300">Mundos Salvos</span>
-                    <button onclick="openCreateWorldModal()" class="px-3 py-1 text-xs btn-minecraft rounded">
+                    <span class="font-minecraft text-[10px] md:text-xs text-gray-300">Mundos Salvos</span>
+                    <button onclick="openCreateWorldModal()" class="px-2 py-1 text-[10px] btn-minecraft rounded">
                         + Novo Mundo
                     </button>
                 </div>
                 
-                <div id="worlds-list" class="max-h-48 overflow-y-auto flex flex-col gap-2 pr-1">
-                    <div class="text-center py-6 text-gray-500 text-sm">
+                <div id="worlds-list" class="max-h-40 overflow-y-auto flex flex-col gap-2 pr-1">
+                    <div class="text-center py-4 text-gray-500 text-xs">
                         <i class="fa-solid fa-spinner animate-spin mr-2"></i> Carregando mundos...
                     </div>
                 </div>
             </div>
 
-            <button onclick="startQuickGame()" class="w-full py-4 text-base md:text-lg btn-minecraft font-minecraft text-white rounded">
+            <button onclick="startQuickGame()" class="w-full py-3 text-sm md:text-base btn-minecraft font-minecraft text-white rounded">
                 JOGO RÁPIDO (Semente Aleatória)
             </button>
         </div>
 
         <!-- Footer com Instruções e Controles -->
-        <div class="max-w-4xl w-full mx-auto mt-auto flex flex-col md:flex-row justify-between gap-4 border-t border-white/10 pt-4 text-xs text-gray-400">
+        <div class="max-w-4xl w-full mx-auto mt-auto flex flex-col md:flex-row justify-between gap-4 border-t border-white/10 pt-4 text-[11px] text-gray-400">
             <div class="flex flex-col gap-1">
                 <span class="font-bold text-gray-200">⌨️ CONTROLES (PC):</span>
-                <span>• Andar: <b class="text-white">W A S D</b> (Ajustado) | Olhar: <b class="text-white">Mouse</b></span>
-                <span>• Blocos: <b class="text-white">Botão Direito</b> (Colocar) | <b class="text-white">Esquerdo</b> (Destruir)</span>
-                <span>• Configurações: <b class="text-white">R</b> | Inventário: <b class="text-white">E</b> (Abre/Fecha de forma confiável)</span>
-                <span>• Nadar/Flutuar: <b class="text-white">Espaço</b> na água</span>
+                <span>• Andar: <b class="text-white">W A S D</b> | Olhar: <b class="text-white">Mouse</b></span>
+                <span>• Colocar: <b class="text-white">Botão Direito</b> | Quebrar: <b class="text-white">Esquerdo</b></span>
+                <span>• Configurações: <b class="text-white">R</b> | Inventário: <b class="text-white">E</b></span>
             </div>
             <div class="flex flex-col gap-1 md:text-right">
-                <span class="font-bold text-gray-200">📱 CONTROLES (TOQUE/MOBILE):</span>
-                <span>• Joystick esquerdo move, arraste na direita para olhar ao redor</span>
-                <span>• Botões rápidos na tela para quebrar e colocar sem cliques múltiplos indesejados</span>
-                <span>• Use o ícone de engrenagem para abrir os ajustes e mudar sementes</span>
+                <span class="font-bold text-gray-200">📱 CONTROLES (MOBILE):</span>
+                <span>• Joystick esquerdo move, arrastar tela direita gira câmera</span>
+                <span>• Botões de toque ultra rápidos sem engasgos</span>
             </div>
         </div>
     </div>
@@ -181,19 +191,19 @@
     <!-- MODAL: Criar Novo Mundo -->
     <div id="create-world-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
         <div class="bg-minecraft-dirt border-4 border-black max-w-md w-full p-6 rounded-lg shadow-2xl">
-            <h3 class="font-minecraft text-lg text-center text-white mb-6">Criar Novo Mundo</h3>
+            <h3 class="font-minecraft text-sm text-center text-white mb-6">Criar Novo Mundo</h3>
             
-            <div class="flex flex-col gap-4 mb-6">
-                <label class="font-minecraft text-xs text-gray-300">Nome do Mundo:</label>
+            <div class="flex flex-col gap-4 mb-6 text-xs">
+                <label class="font-minecraft text-[9px] text-gray-300">Nome do Mundo:</label>
                 <input type="text" id="new-world-name" placeholder="Meu Mundo Incrível" 
-                       class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-sm focus:outline-none focus:border-yellow-500">
+                       class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-xs focus:outline-none focus:border-yellow-500">
                 
-                <label class="font-minecraft text-xs text-gray-300">Semente (Seed) do Mundo:</label>
+                <label class="font-minecraft text-[9px] text-gray-300">Semente (Seed) do Mundo:</label>
                 <input type="text" id="new-world-seed" placeholder="Ex: Luis, 98723, mar, floresta" 
-                       class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-sm focus:outline-none focus:border-yellow-500">
+                       class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-xs focus:outline-none focus:border-yellow-500">
 
-                <label class="font-minecraft text-xs text-gray-300">Gerador Primário:</label>
-                <select id="world-generator-type" class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-sm focus:outline-none">
+                <label class="font-minecraft text-[9px] text-gray-300">Gerador Primário:</label>
+                <select id="world-generator-type" class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-xs focus:outline-none">
                     <option value="mixed">Biomas Mistos (Colinas e Deserto)</option>
                     <option value="hills">Apenas Colinas & Florestas</option>
                     <option value="desert">Apenas Deserto de Areia</option>
@@ -204,38 +214,36 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="closeCreateWorldModal()" class="py-3 btn-minecraft font-minecraft text-sm rounded">
+                <button onclick="closeCreateWorldModal()" class="py-2.5 btn-minecraft font-minecraft text-xs rounded">
                     Cancelar
                 </button>
-                <button onclick="createNewWorld()" class="py-3 btn-minecraft font-minecraft text-sm rounded bg-green-700">
+                <button onclick="createNewWorld()" class="py-2.5 btn-minecraft font-minecraft text-xs rounded bg-green-700">
                     Criar
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: INVENTÁRIO COMPLETO -->
+    <!-- MODAL: INVENTÁRIO -->
     <div id="inventory-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
-        <div class="bg-[#2c2c2c] border-4 border-[#4a4a4a] max-w-lg w-full p-6 rounded-lg shadow-2xl flex flex-col gap-4">
+        <div class="bg-[#2c2c2c] border-4 border-black max-w-lg w-full p-6 rounded-lg shadow-2xl flex flex-col gap-4">
             <div class="flex justify-between items-center border-b border-[#444] pb-2">
-                <h3 class="font-minecraft text-sm text-yellow-400"><i class="fa-solid fa-box-archive mr-2"></i> Inventário Criativo</h3>
-                <button onclick="toggleInventory()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="font-minecraft text-xs text-yellow-400"><i class="fa-solid fa-box-archive mr-2"></i> Inventário Criativo</h3>
+                <button onclick="toggleInventory()" class="text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
-            <p class="text-[10px] md:text-xs text-gray-400">Selecione um bloco do catálogo abaixo para colocá-lo no slot selecionado da sua hotbar ativa.</p>
+            <p class="text-[10px] text-gray-400">Selecione um bloco do catálogo para equipar na sua hotbar.</p>
             
-            <div id="inventory-grid" class="grid grid-cols-4 sm:grid-cols-6 gap-3 max-h-60 overflow-y-auto p-2 bg-black/40 border-2 border-[#1e1e1e] rounded">
-                <!-- Injetado dinamicamente via JS -->
+            <div id="inventory-grid" class="grid grid-cols-4 sm:grid-cols-6 gap-3 max-h-48 overflow-y-auto p-2 bg-black/40 border-2 border-[#1e1e1e] rounded">
+                <!-- Injetado dinamicamente -->
             </div>
 
-            <div class="border-t border-[#444] pt-3 flex items-center justify-between">
-                <span class="text-xs text-gray-300 font-minecraft">Slot Ativo da Hotbar:</span>
-                <div id="active-slot-indicator" class="flex items-center gap-2 bg-black/50 px-3 py-1.5 border border-yellow-500 rounded text-xs text-yellow-300">
-                    <!-- Slot ativo -->
-                </div>
+            <div class="border-t border-[#444] pt-2 flex items-center justify-between">
+                <span class="text-[10px] text-gray-300 font-minecraft">Slot Ativo:</span>
+                <div id="active-slot-indicator" class="flex items-center gap-2 bg-black/50 px-3 py-1 border border-yellow-500 rounded text-[10px] text-yellow-300"></div>
             </div>
 
-            <button onclick="toggleInventory()" class="w-full py-2.5 btn-minecraft font-minecraft text-xs rounded text-white mt-2">
+            <button onclick="toggleInventory()" class="w-full py-2 btn-minecraft font-minecraft text-xs rounded text-white mt-1">
                 Voltar ao Jogo
             </button>
         </div>
@@ -245,51 +253,46 @@
     <div id="settings-modal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[65] p-4">
         <div class="bg-[#2c2c2c] border-4 border-[#4a4a4a] max-w-md w-full p-6 rounded-lg shadow-2xl flex flex-col gap-4">
             <div class="flex justify-between items-center border-b border-[#444] pb-2">
-                <h3 class="font-minecraft text-sm text-yellow-400"><i class="fa-solid fa-sliders mr-2"></i> Configurações [R]</h3>
-                <button onclick="toggleSettings()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="font-minecraft text-xs text-yellow-400"><i class="fa-solid fa-sliders mr-2"></i> Configurações [R]</h3>
+                <button onclick="toggleSettings()" class="text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
-            <div class="flex flex-col gap-4 text-xs">
-                <!-- Semente ativa -->
+            <div class="flex flex-col gap-3 text-[11px]">
                 <div class="flex justify-between items-center bg-black/40 p-2 border border-gray-700 rounded">
-                    <span class="font-minecraft text-[10px] text-gray-400">Seed Ativa:</span>
+                    <span class="font-minecraft text-[9px] text-gray-400">Seed Ativa:</span>
                     <span id="settings-seed-val" class="font-mono text-yellow-300 text-xs font-semibold">0</span>
                 </div>
 
-                <!-- Distância de renderização -->
                 <div class="flex flex-col gap-1">
                     <div class="flex justify-between">
                         <span class="font-semibold text-gray-300">Distância de Renderização:</span>
                         <span id="settings-render-val" class="text-yellow-400 font-bold">2 Chunks</span>
                     </div>
-                    <input type="range" id="setting-view-distance" min="1" max="4" step="1" value="2" 
-                           class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
+                    <input type="range" id="setting-view-distance" min="1" max="3" step="1" value="2" 
+                           class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
                 </div>
                 
-                <!-- Velocidade do Voo -->
                 <div class="flex flex-col gap-1">
                     <div class="flex justify-between">
                         <span class="font-semibold text-gray-300">Velocidade de Voo:</span>
                         <span id="settings-fly-val" class="text-yellow-400 font-bold">8 m/s</span>
                     </div>
                     <input type="range" id="setting-fly-speed" min="4" max="25" step="1" value="8" 
-                           class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
+                           class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
                 </div>
 
-                <!-- Densidade da Neblina -->
                 <div class="flex flex-col gap-1">
                     <div class="flex justify-between">
                         <span class="font-semibold text-gray-300">Densidade da Neblina:</span>
                         <span id="settings-fog-val" class="text-yellow-400 font-bold">0.025</span>
                     </div>
                     <input type="range" id="setting-fog-density" min="0.005" max="0.07" step="0.005" value="0.025" 
-                           class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
+                           class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500" oninput="updateSettingsUIValues()">
                 </div>
 
-                <!-- Preferência de Bioma -->
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold text-gray-300">Modo de Bioma Ativo:</span>
-                    <select id="setting-biome" class="w-full bg-black/60 border border-gray-600 rounded p-2 text-white">
+                    <select id="setting-biome" class="w-full bg-black/60 border border-gray-600 rounded p-1.5 text-white">
                         <option value="mixed">Misto (Colinas & Deserto)</option>
                         <option value="hills">Apenas Colinas / Floresta</option>
                         <option value="desert">Apenas Deserto de Areia</option>
@@ -299,24 +302,22 @@
                     </select>
                 </div>
 
-                <!-- Nuvens Toggle -->
                 <div class="flex justify-between items-center py-1">
                     <span class="font-semibold text-gray-300">Nuvens 3D Ativadas:</span>
-                    <input type="checkbox" id="setting-clouds" checked class="w-4 h-4 accent-yellow-500 cursor-pointer">
+                    <input type="checkbox" id="setting-clouds" checked class="w-3.5 h-3.5 accent-yellow-500 cursor-pointer">
                 </div>
 
-                <!-- Modo Batata Toggle -->
-                <div class="flex justify-between items-center py-2 border-t border-[#444] mt-1">
+                <div class="flex justify-between items-center py-1.5 border-t border-[#444] mt-1">
                     <span class="font-bold text-red-400">Modo Batata (Sem Texturas):</span>
-                    <input type="checkbox" id="setting-potato" class="w-4 h-4 accent-red-500 cursor-pointer">
+                    <input type="checkbox" id="setting-potato" class="w-3.5 h-3.5 accent-red-500 cursor-pointer">
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 border-t border-[#444] pt-4">
-                <button onclick="applySettings()" class="py-2.5 btn-minecraft font-minecraft text-xs rounded text-white bg-green-700">
-                    Aplicar Mudanças
+                <button onclick="applySettings()" class="py-2 btn-minecraft font-minecraft text-xs rounded text-white bg-green-700">
+                    Aplicar
                 </button>
-                <button onclick="toggleSettings()" class="py-2.5 btn-minecraft font-minecraft text-xs rounded text-white">
+                <button onclick="toggleSettings()" class="py-2 btn-minecraft font-minecraft text-xs rounded text-white">
                     Fechar
                 </button>
             </div>
@@ -327,40 +328,41 @@
     <div id="custom-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[70] p-4">
         <div class="bg-[#2c2c2c] border-4 border-black max-w-sm w-full p-5 rounded-lg shadow-2xl text-center">
             <h4 id="custom-modal-title" class="font-minecraft text-sm text-yellow-400 mb-4">Atenção</h4>
-            <p id="custom-modal-body" class="text-sm text-gray-200 mb-6"></p>
-            <button onclick="closeCustomModal()" class="px-6 py-2 btn-minecraft font-minecraft text-xs rounded mx-auto">
+            <p id="custom-modal-body" class="text-xs text-gray-200 mb-6"></p>
+            <button onclick="closeCustomModal()" class="px-6 py-1.5 btn-minecraft font-minecraft text-xs rounded mx-auto">
                 Ok
             </button>
         </div>
     </div>
 
     <!-- HUD DO JOGO (Visível durante a gameplay) -->
-    <div id="game-hud" class="hidden absolute inset-0 pointer-events-none z-30 flex flex-col justify-between p-4">
+    <div id="game-hud" class="hidden absolute inset-0 pointer-events-none z-30 flex flex-col justify-between p-3">
         
         <!-- Barra Superior: Info, Coordenadas e Menu de Pausa -->
         <div class="flex justify-between items-start w-full">
-            <div class="bg-black/40 backdrop-blur-xs p-2 rounded text-xs font-mono flex flex-col gap-1 pointer-events-auto">
-                <div class="font-bold text-yellow-400 font-minecraft text-[8px] tracking-wide">Minecraft JS v1.8</div>
+            <div class="bg-black/40 backdrop-blur-xs p-2 rounded text-[10px] font-mono flex flex-col gap-0.5 pointer-events-auto">
+                <div class="font-bold text-yellow-400 font-minecraft text-[7px] tracking-wide">Minecraft JS v2.1</div>
                 <div id="hud-coords">Pos: X: 0 | Y: 0 | Z: 0</div>
                 <div id="hud-blocks-count">Blocos: 0</div>
                 <div id="hud-flight-status" class="text-green-400 font-semibold">Voo: Desativado</div>
                 <div id="hud-biome-status" class="text-blue-300">Bioma: Calculando...</div>
                 <div id="hud-potato-status" class="text-red-400 font-bold hidden">🥔 MODO BATATA ATIVO</div>
-                <div class="text-gray-400 text-[10px]">💾 Posição salva localmente</div>
+                <div id="hud-fps-status" class="text-yellow-500 font-bold">FPS: --</div>
+                <div class="text-gray-400 text-[10px]">💾 Salvamento persistente ativado</div>
             </div>
 
             <!-- Botões de ação rápida -->
             <div class="flex gap-2 pointer-events-auto">
-                <button onclick="toggleSettings()" class="px-3 py-2 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
+                <button id="hud-btn-settings" onclick="toggleSettings()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-sliders"></i> Ajustes [R]
                 </button>
-                <button onclick="toggleInventory()" class="px-3 py-2 btn-minecraft rounded text-xs font-semibold flex items-center gap-1 bg-yellow-700">
+                <button id="hud-btn-inventory" onclick="toggleInventory()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1 bg-yellow-700">
                     <i class="fa-solid fa-box-archive"></i> Inventário [E]
                 </button>
-                <button onclick="saveCurrentWorld()" class="px-3 py-2 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
+                <button onclick="saveCurrentWorld()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-cloud-arrow-up"></i> Salvar
                 </button>
-                <button onclick="exitToMainMenu()" class="px-3 py-2 btn-minecraft-danger btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
+                <button onclick="exitToMainMenu()" class="px-3 py-1.5 btn-minecraft-danger btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-door-open"></i> Sair
                 </button>
             </div>
@@ -371,30 +373,23 @@
 
         <!-- CONTROLES MOBILE -->
         <div id="mobile-controls" class="hidden absolute inset-0 pointer-events-none flex flex-col justify-between">
-            
             <div class="flex justify-between items-end w-full px-6 mb-24 mt-auto">
                 <!-- Joystick Container -->
-                <div id="joystick-zone" class="w-36 h-36 bg-black/20 border-4 border-white/20 rounded-full flex items-center justify-center pointer-events-auto relative active:bg-black/30">
-                    <div id="joystick-knob" class="w-12 h-12 bg-white/40 border-2 border-white/60 rounded-full absolute transition-all duration-75"></div>
+                <div id="joystick-zone" class="w-32 h-32 bg-black/20 border-4 border-white/20 rounded-full flex items-center justify-center pointer-events-auto relative active:bg-black/30">
+                    <div id="joystick-knob" class="w-10 h-10 bg-white/40 border-2 border-white/60 rounded-full absolute transition-all duration-75"></div>
                 </div>
 
                 <!-- Botões de Ação de Bloco / Câmera -->
                 <div class="flex flex-col gap-3 pointer-events-auto">
-                    <button id="btn-toggle-fly" class="touch-btn w-14 h-14 bg-blue-600/60 font-minecraft text-[10px]">
+                    <button id="btn-toggle-fly" class="touch-btn w-12 h-12 bg-blue-600/60 font-minecraft text-[9px]">
                         VOAR
                     </button>
-                    <button onclick="toggleSettings()" class="touch-btn w-14 h-14 bg-purple-600/60 font-minecraft text-[10px]">
-                        AJUS
-                    </button>
-                    <button onclick="toggleInventory()" class="touch-btn w-14 h-14 bg-yellow-600/60 font-minecraft text-[10px]">
-                        INV
-                    </button>
                     <div class="flex gap-3">
-                        <button id="btn-touch-place" class="touch-btn w-16 h-16 bg-green-600/70 border-green-400">
-                            <i class="fa-solid fa-hammer text-2xl"></i>
+                        <button id="btn-touch-place" class="touch-btn w-14 h-14 bg-green-600/70 border-green-400">
+                            <i class="fa-solid fa-hammer text-xl"></i>
                         </button>
-                        <button id="btn-touch-break" class="touch-btn w-16 h-16 bg-red-600/70 border-red-400">
-                            <i class="fa-solid fa-cube text-2xl"></i>
+                        <button id="btn-touch-break" class="touch-btn w-14 h-14 bg-red-600/70 border-red-400">
+                            <i class="fa-solid fa-cube text-xl"></i>
                         </button>
                     </div>
                 </div>
@@ -402,18 +397,18 @@
 
             <!-- Botões de subir e descer à direita -->
             <div class="absolute right-6 top-1/3 flex flex-col gap-4 pointer-events-auto">
-                <button id="btn-touch-up" class="touch-btn w-14 h-14 bg-white/20">
-                    <i class="fa-solid fa-chevron-up text-xl"></i>
+                <button id="btn-touch-up" class="touch-btn w-12 h-12 bg-white/20">
+                    <i class="fa-solid fa-chevron-up text-lg"></i>
                 </button>
-                <button id="btn-touch-down" class="touch-btn w-14 h-14 bg-white/20">
-                    <i class="fa-solid fa-chevron-down text-xl"></i>
+                <button id="btn-touch-down" class="touch-btn w-12 h-12 bg-white/20">
+                    <i class="fa-solid fa-chevron-down text-lg"></i>
                 </button>
             </div>
         </div>
 
         <!-- Barra Inferior: Hotbar de Blocos -->
-        <div class="w-full flex flex-col items-center gap-2 mt-auto">
-            <div id="selected-block-name" class="font-minecraft text-xs text-shadow bg-black/50 px-3 py-1 rounded text-yellow-400">
+        <div class="w-full flex flex-col items-center gap-1.5 mt-auto">
+            <div id="selected-block-name" class="font-minecraft text-[10px] text-shadow bg-black/50 px-2.5 py-0.5 rounded text-yellow-400">
                 Grama
             </div>
             
@@ -447,18 +442,42 @@
         let userId = null;
         let authenticated = false;
 
-        let localWorlds = [
-            {
-                id: 'mundo_padrao',
-                name: 'Planeta Infinito Luis',
-                createdAt: new Date().toLocaleDateString('pt-BR'),
-                blocks: JSON.stringify({
-                    "0,6,0": 12, "0,7,0": 12 
-                }),
-                generator: 'mixed',
-                seed: 'Luis'
+        // SISTEMA DE LEITURA E SALVAMENTO DE MUNDOS PERSISTENTES (LocalStorage permanente)
+        let localWorlds = [];
+        
+        function loadWorldsFromLocalStorage() {
+            const savedWorldsJSON = localStorage.getItem('mc_worlds_list');
+            if (savedWorldsJSON) {
+                try {
+                    localWorlds = JSON.parse(savedWorldsJSON);
+                } catch(e) {
+                    console.error("Falha ao carregar lista de mundos locais", e);
+                }
             }
-        ];
+            
+            // Se a lista estiver vazia, cria o padrão
+            if (localWorlds.length === 0) {
+                localWorlds = [
+                    {
+                        id: 'mundo_padrao',
+                        name: 'Planeta Infinito Luis',
+                        createdAt: new Date().toLocaleDateString('pt-BR'),
+                        blocks: JSON.stringify({
+                            "0,6,0": 12, "0,7,0": 12 
+                        }),
+                        generator: 'mixed',
+                        seed: 'Luis'
+                    }
+                ];
+                saveWorldsListToLocalStorage();
+            }
+        }
+
+        function saveWorldsListToLocalStorage() {
+            localStorage.setItem('mc_worlds_list', JSON.stringify(localWorlds));
+        }
+
+        loadWorldsFromLocalStorage();
 
         try {
             if (typeof __firebase_config !== 'undefined') {
@@ -466,13 +485,12 @@
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
-                console.log("Firebase conectado.");
             } else {
-                updateAuthStatus("Modo Local (Offline)", "fa-cloud-arrow-down");
+                updateAuthStatus("Modo Local (Persistente)", "fa-cloud-arrow-down");
                 loadWorldsUI();
             }
         } catch (error) {
-            updateAuthStatus("Erro de Rede (Modo Local)", "fa-triangle-exclamation");
+            updateAuthStatus("Modo Local (Persistente)", "fa-cloud-arrow-down");
             loadWorldsUI();
         }
 
@@ -490,7 +508,7 @@
                 updateAuthStatus("Sincronizado na Nuvem", "fa-cloud-circle-check");
                 await fetchWorldsFromCloud();
             } catch (err) {
-                updateAuthStatus("Sem Sincronização (Modo Local)", "fa-cloud-arrow-down");
+                updateAuthStatus("Modo Local (Persistente)", "fa-cloud-arrow-down");
                 loadWorldsUI();
             }
         }
@@ -518,6 +536,7 @@
 
                 if (cloudWorlds.length > 0) {
                     localWorlds = cloudWorlds;
+                    saveWorldsListToLocalStorage(); 
                 }
                 loadWorldsUI();
             } catch (err) {
@@ -527,7 +546,7 @@
 
         window.saveWorldToStorage = async function(worldId, worldName, blocksObject, generatorType, currentSeed) {
             document.getElementById('action-spinner').classList.remove('hidden');
-            document.getElementById('spinner-text').innerText = "Salvando mundo na nuvem...";
+            document.getElementById('spinner-text').innerText = "Salvando progresso de forma permanente...";
 
             const blocksString = JSON.stringify(blocksObject);
             const worldData = {
@@ -545,16 +564,18 @@
                 localWorlds.push({ id: worldId, ...worldData });
             }
 
+            saveWorldsListToLocalStorage();
+
             if (db && userId && authenticated) {
                 try {
                     const worldDocRef = doc(db, 'artifacts', appId, 'users', userId, 'worlds', worldId);
                     await setDoc(worldDocRef, worldData);
-                    showCustomModal("Sucesso", "Progresso salvo na nuvem com sucesso!");
+                    showCustomModal("Sucesso", "Mundo salvo com sucesso!");
                 } catch (err) {
-                    showCustomModal("Salvo Localmente", "Erro ao sincronizar com nuvem. Salvo em memória local.");
+                    showCustomModal("Salvo no Dispositivo", "Sua obra foi armazenada localmente com sucesso.");
                 }
             } else {
-                showCustomModal("Salvo Localmente", "Mundo salvo nesta sessão em memória.");
+                showCustomModal("Salvo no Dispositivo", "Sua obra foi armazenada localmente com sucesso.");
             }
 
             document.getElementById('action-spinner').classList.add('hidden');
@@ -563,9 +584,12 @@
 
         window.deleteWorldFromStorage = async function(worldId) {
             document.getElementById('action-spinner').classList.remove('hidden');
-            document.getElementById('spinner-text').innerText = "Deletando mundo...";
+            document.getElementById('spinner-text').innerText = "Excluindo mundo...";
 
             localWorlds = localWorlds.filter(w => w.id !== worldId);
+            saveWorldsListToLocalStorage(); 
+
+            localStorage.removeItem(`mc_player_pos_${worldId}`);
 
             if (db && userId && authenticated) {
                 try {
@@ -573,7 +597,7 @@
                     await deleteDoc(worldDocRef);
                     showCustomModal("Sucesso", "Mundo excluído.");
                 } catch (err) {
-                    showCustomModal("Excluído", "Mundo removido localmente.");
+                    showCustomModal("Excluído", "Mundo removido.");
                 }
             } else {
                 showCustomModal("Excluído", "Mundo excluído.");
@@ -589,7 +613,7 @@
 
             if (localWorlds.length === 0) {
                 listContainer.innerHTML = `
-                    <div class="text-center py-6 text-gray-400 text-sm">
+                    <div class="text-center py-4 text-gray-400 text-xs">
                         Nenhum mundo salvo. Crie o seu primeiro mundo!
                     </div>
                 `;
@@ -599,29 +623,29 @@
             listContainer.innerHTML = '';
             localWorlds.forEach((world) => {
                 const item = document.createElement('div');
-                item.className = 'bg-[#2a2a2a] hover:bg-[#333333] border-2 border-black p-3 rounded flex items-center justify-between gap-4 transition-colors';
+                item.className = 'bg-[#2a2a2a] hover:bg-[#333333] border-2 border-black p-2 rounded flex items-center justify-between gap-3 transition-colors';
                 
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'flex flex-col';
                 
                 const seedLabel = world.seed ? String(world.seed) : 'Luis';
                 infoDiv.innerHTML = `
-                    <span class="font-minecraft text-xs text-yellow-300 truncate max-w-[180px] md:max-w-xs">${world.name}</span>
-                    <span class="text-[10px] text-gray-400 mt-1">Salvo: ${world.createdAt} | Seed: ${seedLabel}</span>
+                    <span class="font-minecraft text-[10px] text-yellow-300 truncate max-w-[150px] md:max-w-xs">${world.name}</span>
+                    <span class="text-[9px] text-gray-400 mt-0.5">Semente: ${seedLabel}</span>
                 `;
 
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'flex gap-2';
 
                 const playBtn = document.createElement('button');
-                playBtn.className = 'px-3 py-1.5 btn-minecraft font-minecraft text-[10px] text-white rounded bg-green-700';
-                playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Jogar';
+                playBtn.className = 'px-2.5 py-1 btn-minecraft font-minecraft text-[9px] text-white rounded bg-green-700';
+                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
                 playBtn.onclick = () => {
                     window.launchWorldGame(world);
                 };
 
                 const delBtn = document.createElement('button');
-                delBtn.className = 'px-2 py-1.5 btn-minecraft btn-minecraft-danger rounded text-[10px]';
+                delBtn.className = 'px-2 py-1 btn-minecraft btn-minecraft-danger rounded text-[9px]';
                 delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
                 delBtn.onclick = () => {
                     if (confirm(`Excluir o mundo "${world.name}"?`)) {
@@ -640,20 +664,23 @@
 
         if (auth) {
             authenticate();
+        } else {
+            loadWorldsUI();
         }
     </script>
 
     <script>
         // CONFIGURAÇÕES DO MOTOR DO JOGO E CHUNKS
         const CHUNK_SIZE = 16;
-        const WORLD_HEIGHT = 16;
+        const WORLD_MAX_Y = 16;
+        const WORLD_MIN_Y = -100; 
         const SEA_LEVEL = 5;
         const BLOCK_SIZE = 1;
-        const MAX_BLOCKS = 65536; 
+        const MAX_BLOCKS = 98304; 
 
         const blockTexturesUI = {};
 
-        // Catálogo de blocos evoluído
+        // Catálogo de blocos
         const BLOCK_TYPES = {
             1: { name: "Grama", color1: "#4caf50", color2: "#2e7d32", isMulti: true },
             2: { name: "Terra", color1: "#795548", color2: "#4e342e" },
@@ -695,19 +722,25 @@
         let fogColor = "#c0d6ff";
         let biomePreference = "mixed"; 
         let cloudsEnabled = true;
-        let potatoMode = false; // MODO BATATA (Sem texturas para performance extrema)
+        let potatoMode = false; 
 
         let selectedBlockType = 1;
         let isGameRunning = false;
         let isMobile = false;
+        let manualControlMode = "detect"; 
         let isInventoryOpen = false;
         let isSettingsOpen = false;
 
+        // FPS Tracker
+        let fpsCounter = 0;
+        let lastFpsTime = 0;
+
         // Configurações do ThreeJS
         let scene, camera, renderer;
-        let instancedMeshes = {};
-        let instanceLookup = {};
         
+        // NOVO DESIGN ARQUITETÔNICO: Grupos e malhas de renderização divididos por CHUNK
+        let loadedChunks = {}; // Guarda { key: { group, meshes: { typeId: InstancedMesh }, dirty: boolean } }
+
         // Estrutura de Cache de Materiais para alternar rapidamente o Modo Batata
         let materialsTextured = {};
         let materialsPotato = {};
@@ -730,13 +763,36 @@
         let cloudMesh;
         const cloudSpeed = 0.5;
 
-        // Temporizador para Simulação de Água
+        // Temporizadores auxiliares
         let lastWaterSimTime = 0;
-        const WATER_SIM_INTERVAL = 300; 
+        const WATER_SIM_INTERVAL = 350; 
+        let lastVoidHealTime = 0; 
 
         // Raycasting
         let raycaster;
         let pointerLockActive = false;
+
+        // FILA DE GERAÇÃO GRADUAL DE CHUNKS
+        let chunkGenerationQueue = []; 
+        let currentGenerationBudget = 2; // Adaptável baseado em performance
+
+        // OTIMIZAÇÃO CRÍTICA DA ÁGUA: Fila ativa por Hash Inteiro (Bit-shifting rápido)
+        let activeWaterSourcesHash = new Set(); 
+
+        // Hashing 3D rápido para inteiros sem lixo de strings na memória
+        function encodeWaterKey(x, y, z) {
+            const ux = (x + 2048) & 0xFFF;
+            const uy = (y + 128) & 0xFF;
+            const uz = (z + 2048) & 0xFFF;
+            return (ux << 20) | (uy << 12) | uz;
+        }
+
+        function decodeWaterKey(key) {
+            const ux = (key >> 20) & 0xFFF;
+            const uy = (key >> 12) & 0xFF;
+            const uz = key & 0xFFF;
+            return [ux - 2048, uy - 128, uz - 2048];
+        }
 
         // Converter String Semente em Valor Numérico Determinístico
         function setWorldSeed(seedStr) {
@@ -760,46 +816,38 @@
             return sx - Math.floor(sx);
         }
 
-        // Sistema procedural de biomas e relevo usando semente (Suporta novos biomas)
+        // Sistema de biomas
         function getBiomeAt(x, z) {
-            // Se o usuário travou o bioma globalmente nas configurações do mundo
             if (biomePreference !== "mixed") return biomePreference;
-            
-            // Caso contrário, divide o mundo de semente em blocos misturados (hills ou desert)
             const bValue = Math.sin(x * 0.015 + worldSeedValue * 0.1) * Math.cos(z * 0.015 - worldSeedValue * 0.1);
             return bValue > 0.08 ? "desert" : "hills";
         }
 
-        // Retorna a altura máxima do terreno para cada bioma de forma contínua e determinística
+        // Altura do terreno
         function getTerrainHeight(x, z, biome) {
             const seedOffset = worldSeedValue % 100;
             
             switch(biome) {
                 case 'desert': {
-                    // Dunas de areia onduladas suaves
                     const h1 = Math.sin((x + seedOffset) * 0.05) * Math.cos((z + seedOffset) * 0.05) * 2.5;
                     return Math.floor(h1 + 6);
                 }
                 case 'dense_forest': {
-                    // Relevo plano/moderado ideal para florestas fechadas
                     const h1 = Math.sin((x + seedOffset) * 0.07) * Math.cos((z - seedOffset) * 0.07) * 2;
                     return Math.floor(h1 + 7);
                 }
                 case 'giant_ocean': {
-                    // Mar massivo profundo com pequenas e raras ilhas de areia
                     const depth = Math.sin((x + seedOffset) * 0.02) * Math.cos((z + seedOffset) * 0.02) * 3;
-                    const h = Math.floor(depth + 2); // Abaixo de SEA_LEVEL (5)
+                    const h = Math.floor(depth + 2);
                     return h < 1 ? 1 : h;
                 }
                 case 'sharp_mountains': {
-                    // Picos de pedra gigantescos e extremamente íngremes/pontiagudos
                     const n = Math.abs(Math.sin((x + seedOffset) * 0.03) * Math.cos((z - seedOffset) * 0.03));
-                    const peak = Math.pow(n, 0.42) * 15; // Deixa os picos muito pontiagudos!
+                    const peak = Math.pow(n, 0.42) * 15;
                     return Math.floor(peak + 3);
                 }
                 case 'hills':
                 default: {
-                    // Colinas e montanhas terrestres verdes normais
                     const h1 = Math.sin((x + seedOffset) * 0.08) * Math.cos((z - seedOffset) * 0.08) * 4;
                     const h2 = Math.cos(x * 0.03) * Math.sin(z * 0.03) * 2.5;
                     return Math.floor(h1 + h2 + 7);
@@ -807,7 +855,7 @@
             }
         }
 
-        // Criar texturas 2D pixeladas dinamicamente
+        // Criar texturas dinâmicas
         function createPixelTexture(color1, color2, isGlass = false, isLeaves = false) {
             const size = 16;
             const canvas = document.createElement('canvas');
@@ -896,121 +944,10 @@
             return { texture, dataUrl: canvas.toDataURL() };
         }
 
-        // MOTOR 3D
-        function initGameEngine() {
-            const container = document.getElementById('canvas-container');
-            container.innerHTML = '';
+        // COMPARTILHAMENTO DE GEOMETRIA GLOBAL (Evita alocação desnecessária por chunk)
+        const boxGeo = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(fogColor);
-            scene.fog = new THREE.FogExp2(fogColor, fogDensity);
-
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.rotation.order = 'YXZ'; 
-            
-            renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-            container.appendChild(renderer.domElement);
-
-            raycaster = new THREE.Raycaster();
-            raycaster.far = 6;
-
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
-            scene.add(ambientLight);
-
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.75);
-            dirLight.position.set(20, 45, 10);
-            scene.add(dirLight);
-
-            // Preparar materiais nos dois caches (Modo Batata e Texturizado)
-            const boxGeo = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-            instancedMeshes = {};
-            materialsTextured = {};
-            materialsPotato = {};
-            
-            for (const typeId in BLOCK_TYPES) {
-                const spec = BLOCK_TYPES[typeId];
-                
-                // 1. Gerar Materiais Texturizados Convencionais
-                let matsTextured;
-                if (spec.isMulti) {
-                    const topTex = createPixelTexture(spec.color1, spec.color2);
-                    const botTex = createPixelTexture(BLOCK_TYPES[2].color1, BLOCK_TYPES[2].color2);
-                    const sideTex = createGrassSideTexture(spec.color1, spec.color2, BLOCK_TYPES[2].color1, BLOCK_TYPES[2].color2);
-
-                    const mSide = new THREE.MeshLambertMaterial({ map: sideTex.texture });
-                    const mTop = new THREE.MeshLambertMaterial({ map: topTex.texture });
-                    const mBot = new THREE.MeshLambertMaterial({ map: botTex.texture });
-
-                    matsTextured = [mSide, mSide, mTop, mBot, mSide, mSide];
-                    blockTexturesUI[typeId] = sideTex.dataUrl;
-                } else {
-                    const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7 || typeId == 16, typeId == 5);
-                    const singleMat = new THREE.MeshLambertMaterial({
-                        map: generated.texture,
-                        transparent: spec.transparent || false,
-                        opacity: spec.opacity !== undefined ? spec.opacity : 1.0,
-                        alphaTest: typeId == 5 ? 0.35 : 0.0,
-                    });
-                    matsTextured = singleMat;
-                    blockTexturesUI[typeId] = generated.dataUrl;
-                }
-                materialsTextured[typeId] = matsTextured;
-
-                // 2. Gerar Materiais do Modo Batata (Sem texturas, cores puras)
-                let matsPotato;
-                if (spec.isMulti) {
-                    const mSide = new THREE.MeshLambertMaterial({ color: BLOCK_TYPES[2].color1 }); // Terra
-                    const mTop = new THREE.MeshLambertMaterial({ color: spec.color1 }); // Grama
-                    const mBot = new THREE.MeshLambertMaterial({ color: BLOCK_TYPES[2].color1 });
-                    matsPotato = [mSide, mSide, mTop, mBot, mSide, mSide];
-                } else {
-                    matsPotato = new THREE.MeshLambertMaterial({
-                        color: spec.color1,
-                        transparent: spec.transparent || false,
-                        opacity: spec.opacity !== undefined ? spec.opacity : 1.0,
-                    });
-                }
-                materialsPotato[typeId] = matsPotato;
-
-                // Determina material inicial com base no Modo Batata
-                const activeMat = potatoMode ? matsPotato : matsTextured;
-
-                const imesh = new THREE.InstancedMesh(boxGeo, activeMat, MAX_BLOCKS);
-                imesh.count = 0;
-                scene.add(imesh);
-                instancedMeshes[typeId] = imesh;
-            }
-
-            if (cloudsEnabled) {
-                createVoxelClouds();
-            }
-
-            spawnPlayerConfiável();
-
-            window.addEventListener('resize', onWindowResize);
-            setupInputListeners();
-            setupMobileHUD();
-        }
-
-        // Alternar os materiais dinamicamente sem reconstruir os meshes
-        function updateMaterialsPotatoMode() {
-            for (const typeId in instancedMeshes) {
-                if (instancedMeshes[typeId]) {
-                    instancedMeshes[typeId].material = potatoMode ? materialsPotato[typeId] : materialsTextured[typeId];
-                }
-            }
-            
-            const pStatus = document.getElementById('hud-potato-status');
-            if (potatoMode) {
-                pStatus.classList.remove('hidden');
-            } else {
-                pStatus.classList.add('hidden');
-            }
-        }
-
-        // Nuvens 3D
+        // FUNÇÃO DE GERAÇÃO DE NUVENS 3D (Restaurada para corrigir o erro de ReferenceError)
         function createVoxelClouds() {
             if (cloudMesh) scene.remove(cloudMesh);
 
@@ -1052,9 +989,113 @@
             scene.add(cloudMesh);
         }
 
+        // MOTOR 3D
+        function initGameEngine() {
+            const container = document.getElementById('canvas-container');
+            container.innerHTML = '';
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(fogColor);
+            scene.fog = new THREE.FogExp2(fogColor, fogDensity);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.rotation.order = 'YXZ'; 
+            
+            renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            container.appendChild(renderer.domElement);
+
+            raycaster = new THREE.Raycaster();
+            raycaster.far = 6;
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.75);
+            dirLight.position.set(20, 45, 10);
+            scene.add(dirLight);
+
+            // Preparar materiais nos caches
+            loadedChunks = {};
+            materialsTextured = {};
+            materialsPotato = {};
+            
+            for (const typeId in BLOCK_TYPES) {
+                const spec = BLOCK_TYPES[typeId];
+                
+                // 1. Materiais texturizados convencionais
+                let matsTextured;
+                if (spec.isMulti) {
+                    const topTex = createPixelTexture(spec.color1, spec.color2);
+                    const botTex = createPixelTexture(BLOCK_TYPES[2].color1, BLOCK_TYPES[2].color2);
+                    const sideTex = createGrassSideTexture(spec.color1, spec.color2, BLOCK_TYPES[2].color1, BLOCK_TYPES[2].color2);
+
+                    const mSide = new THREE.MeshLambertMaterial({ map: sideTex.texture });
+                    const mTop = new THREE.MeshLambertMaterial({ map: topTex.texture });
+                    const mBot = new THREE.MeshLambertMaterial({ map: botTex.texture });
+
+                    matsTextured = [mSide, mSide, mTop, mBot, mSide, mSide];
+                    blockTexturesUI[typeId] = sideTex.dataUrl;
+                } else {
+                    const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7 || typeId == 16, typeId == 5);
+                    const singleMat = new THREE.MeshLambertMaterial({
+                        map: generated.texture,
+                        transparent: spec.transparent || false,
+                        opacity: spec.opacity !== undefined ? spec.opacity : 1.0,
+                        alphaTest: typeId == 5 ? 0.35 : 0.0,
+                    });
+                    matsTextured = singleMat;
+                    blockTexturesUI[typeId] = generated.dataUrl;
+                }
+                materialsTextured[typeId] = matsTextured;
+
+                // 2. Materiais do Modo Batata (Shaders básicos rápidos)
+                let matsPotato;
+                if (spec.isMulti) {
+                    const mSide = new THREE.MeshBasicMaterial({ color: BLOCK_TYPES[2].color1 }); 
+                    const mTop = new THREE.MeshBasicMaterial({ color: spec.color1 }); 
+                    const mBot = new THREE.MeshBasicMaterial({ color: BLOCK_TYPES[2].color1 });
+                    matsPotato = [mSide, mSide, mTop, mBot, mSide, mSide];
+                } else {
+                    matsPotato = new THREE.MeshBasicMaterial({
+                        color: spec.color1,
+                        transparent: spec.transparent || false,
+                        opacity: spec.opacity !== undefined ? spec.opacity : 1.0,
+                    });
+                }
+                materialsPotato[typeId] = matsPotato;
+            }
+
+            if (cloudsEnabled) {
+                createVoxelClouds();
+            }
+
+            spawnPlayerConfiável();
+
+            window.addEventListener('resize', onWindowResize);
+            setupInputListeners();
+            setupMobileHUD();
+        }
+
+        // Alternar os materiais dinamicamente sem recriar os meshes globais
+        function updateMaterialsPotatoMode() {
+            for (const key in loadedChunks) {
+                loadedChunks[key].dirty = true; // Remarca chunks para reconstrução leve de material no próximo frame
+            }
+            
+            const pStatus = document.getElementById('hud-potato-status');
+            if (potatoMode) {
+                pStatus.classList.remove('hidden');
+                scene.background = new THREE.Color(0x000000); // Fundo preto para performance no modo batata extremo
+            } else {
+                pStatus.classList.add('hidden');
+                scene.background = new THREE.Color(fogColor);
+            }
+        }
+
         // SPAWN INTELIGENTE COM PERSISTÊNCIA DE POSIÇÃO
         function spawnPlayerConfiável() {
-            // Tenta obter a última posição salva no localStorage
             const savedPosKey = `mc_player_pos_${currentWorld.id}`;
             const savedPosData = localStorage.getItem(savedPosKey);
 
@@ -1068,27 +1109,25 @@
                     playerVelocity.set(0, 0, 0);
                     lastChunkX = null;
                     lastChunkZ = null;
-                    console.log("Posição carregada do LocalStorage:", parsed);
                     return;
                 } catch (err) {
                     console.error("Falha ao ler posição salva:", err);
                 }
             }
 
-            // Fallback: Spawn padrão baseado no topo do chunk (0,0)
             resetPlayerPosition();
         }
 
         function resetPlayerPosition() {
             const spawnX = 0;
             const spawnZ = 0;
-            generateChunkData(0, 0);
+            generateChunkDataDirect(0, 0, 0, 16); 
 
             const biome = getBiomeAt(spawnX, spawnZ);
             const terrainY = getTerrainHeight(spawnX, spawnZ, biome);
             
             let highestBlockY = terrainY;
-            for (let y = terrainY + 1; y < WORLD_HEIGHT; y++) {
+            for (let y = terrainY + 1; y < WORLD_MAX_Y; y++) {
                 const type = getBlockAt(spawnX, y, spawnZ);
                 if (type !== undefined && type !== 16) { 
                     highestBlockY = y;
@@ -1103,14 +1142,67 @@
             lastChunkZ = null;
         }
 
-        // GERADOR PROCEDURAL DE CHUNKS NO INFINITO (Suporte aos novos biomas)
-        function generateChunkData(cx, cz) {
+        // OTIMIZAÇÃO: GERADOR GRADUAL DE CHUNKS EM FATIAS VERTICAIS (De cima para baixo)
+        function queueChunkForGradualGeneration(cx, cz) {
             const chunkKey = `${cx},${cz}`;
-            if (proceduralChunkCache[chunkKey]) return;
+            if (proceduralChunkCache[chunkKey]) return; 
             
-            const cache = {};
-            proceduralChunkCache[chunkKey] = cache;
+            proceduralChunkCache[chunkKey] = {}; 
             
+            const stepSize = 15;
+            for (let yTop = WORLD_MAX_Y; yTop > WORLD_MIN_Y; yTop -= stepSize) {
+                const yBottom = Math.max(WORLD_MIN_Y, yTop - stepSize);
+                chunkGenerationQueue.push({ cx, cz, yTop, yBottom });
+            }
+        }
+
+        // Processa as tarefas de fatiamento vertical respeitando limites estritos de frames
+        function processGradualChunkGeneration() {
+            if (chunkGenerationQueue.length === 0) return;
+
+            const px = camera.position.x;
+            const pz = camera.position.z;
+            const pcx = Math.floor(px / CHUNK_SIZE);
+            const pcz = Math.floor(pz / CHUNK_SIZE);
+
+            chunkGenerationQueue.sort((a, b) => {
+                const distA = Math.pow(a.cx - pcx, 2) + Math.pow(a.cz - pcz, 2) - (a.yTop * 0.01);
+                const distB = Math.pow(b.cx - pcx, 2) + Math.pow(b.cz - pcz, 2) - (b.yTop * 0.01);
+                return distA - distB; 
+            });
+
+            // GERAÇÃO ADAPTATIVA: Se o jogo detectar travamentos abaixo de 55fps, diminui a quantidade de fatias geradas
+            const budget = Math.min(chunkGenerationQueue.length, currentGenerationBudget);
+            let needsVisualRefresh = false;
+
+            for (let i = 0; i < budget; i++) {
+                const task = chunkGenerationQueue.shift();
+                if (task) {
+                    generateChunkDataDirect(task.cx, task.cz, task.yBottom, task.yTop);
+                    
+                    // CORREÇÃO CRÍTICA: Sempre que uma fatia do chunk é gerada, marca como "dirty" para forçar o redesenho imediato
+                    const key = `${task.cx},${task.cz}`;
+                    if (loadedChunks[key]) {
+                        loadedChunks[key].dirty = true;
+                    }
+                    
+                    needsVisualRefresh = true;
+                }
+            }
+
+            if (needsVisualRefresh) {
+                updateSceneVoxelMeshes();
+            }
+        }
+
+        // Geração direta
+        function generateChunkDataDirect(cx, cz, yMin, yMax) {
+            const chunkKey = `${cx},${cz}`;
+            if (!proceduralChunkCache[chunkKey]) {
+                proceduralChunkCache[chunkKey] = {};
+            }
+            
+            const cache = proceduralChunkCache[chunkKey];
             const startX = cx * CHUNK_SIZE;
             const endX = startX + CHUNK_SIZE;
             const startZ = cz * CHUNK_SIZE;
@@ -1121,38 +1213,38 @@
                     const biome = getBiomeAt(x, z);
                     const height = getTerrainHeight(x, z, biome);
                     
-                    for (let y = 0; y <= WORLD_HEIGHT; y++) {
-                        if (y === 0) {
-                            cache[`${x},${y},${z}`] = 11; // Obsidiana profunda inquebrável
+                    for (let y = yMin; y <= yMax; y++) {
+                        if (y === WORLD_MIN_Y) {
+                            cache[`${x},${y},${z}`] = 11; 
                         } else if (y < height - 2) {
                             const r = hash3D(x, y, z);
                             if (r < 0.04) cache[`${x},${y},${z}`] = 14; 
-                            else if (r < 0.06) cache[`${x},${y},${z}`] = 13; 
+                            else if (r < 0.06 && y < 0) cache[`${x},${y},${z}`] = 13; 
+                            else if (r < 0.07 && y < -30) cache[`${x},${y},${z}`] = 9; 
                             else cache[`${x},${y},${z}`] = 3; 
                         } else if (y < height) {
-                            // Define se terra, areia ou pedra dependendo do bioma
                             if (biome === 'desert' || biome === 'giant_ocean') {
-                                cache[`${x},${y},${z}`] = 10; // Areia profunda
+                                cache[`${x},${y},${z}`] = 10; 
                             } else if (biome === 'sharp_mountains') {
-                                cache[`${x},${y},${z}`] = 3; // Pedra nas montanhas
+                                cache[`${x},${y},${z}`] = 3; 
                             } else {
-                                cache[`${x},${y},${z}`] = 2; // Terra debaixo da grama
+                                cache[`${x},${y},${z}`] = 2; 
                             }
                         } else if (y === height) {
                             if (biome === 'desert' || biome === 'giant_ocean') {
-                                cache[`${x},${y},${z}`] = 10; // Areia no topo
+                                cache[`${x},${y},${z}`] = 10; 
                             } else if (biome === 'sharp_mountains') {
-                                cache[`${x},${y},${z}`] = 3; // Pedra pura no pico das montanhas
+                                cache[`${x},${y},${z}`] = 3; 
                             } else {
-                                cache[`${x},${y},${z}`] = 1; // Grama
+                                cache[`${x},${y},${z}`] = 1; 
                             }
                         } else if (y > height && y <= SEA_LEVEL) {
-                            cache[`${x},${y},${z}`] = 16; // Água para rios/oceanos
+                            cache[`${x},${y},${z}`] = 16; 
+                            activeWaterSourcesHash.add(encodeWaterKey(x, y, z));
                         }
                     }
                     
-                    // Geração de detalhes e árvores/cactus baseados em biomas
-                    if (height > SEA_LEVEL) {
+                    if (height > SEA_LEVEL && height >= yMin && height <= yMax) {
                         const seed = hash2D(x, z);
                         
                         if (biome === 'desert') {
@@ -1162,11 +1254,10 @@
                                 if (seed < 0.01) cache[`${x},${height+3},${z}`] = 15;
                             }
                         } else if (biome === 'dense_forest') {
-                            // Muito mais árvores na floresta densa (chance de 8% contra 1.5% do normal)
                             if (seed < 0.09) {
                                 const treeHeight = 5 + Math.floor(seed * 100) % 3;
                                 for (let ty = 1; ty <= treeHeight; ty++) {
-                                    cache[`${x},${height+ty},${z}`] = 4; // Madeira escura
+                                    cache[`${x},${height+ty},${z}`] = 4; 
                                 }
                                 
                                 const leafTop = height + treeHeight;
@@ -1188,7 +1279,7 @@
                                                 proceduralChunkCache[targetChunkKey] = {};
                                             }
                                             if (proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] === undefined) {
-                                                proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; // Folhas densas
+                                                proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; 
                                             }
                                         }
                                     }
@@ -1232,7 +1323,20 @@
             }
         }
 
-        // Retorna o bloco em qualquer coordenada global
+        // OTIMIZAÇÃO CRÍTICA DE RETORNO DE BLOCOS FAST
+        // Evita enfileirar fatias procedurais durante testes de oclusão ou física
+        function getBlockAtFast(x, y, z) {
+            const key = `${x},${y},${z}`;
+            if (modifiedBlocks[key] !== undefined) {
+                return modifiedBlocks[key] === 0 ? undefined : modifiedBlocks[key];
+            }
+            const cx = Math.floor(x / CHUNK_SIZE);
+            const cz = Math.floor(z / CHUNK_SIZE);
+            const chunk = proceduralChunkCache[`${cx},${cz}`];
+            if (!chunk) return undefined;
+            return chunk[key];
+        }
+
         function getBlockAt(x, y, z) {
             const key = `${x},${y},${z}`;
             
@@ -1245,172 +1349,272 @@
             const chunkKey = `${cx},${cz}`;
             
             if (!proceduralChunkCache[chunkKey]) {
-                generateChunkData(cx, cz);
+                queueChunkForGradualGeneration(cx, cz);
+                return undefined; 
             }
             
             return proceduralChunkCache[chunkKey][key];
         }
 
-        // SISTEMA DE OCLUSÃO 3D 
-        function isBlockOccluded(bx, by, bz) {
-            return isSolidBlock(bx + 1, by, bz) &&
-                   isSolidBlock(bx - 1, by, bz) &&
-                   isSolidBlock(bx, by + 1, bz) &&
-                   isSolidBlock(bx, by - 1, bz) &&
-                   isSolidBlock(bx, by, bz + 1) &&
-                   isSolidBlock(bx, by, bz - 1);
+        // SISTEMA DE OCLUSÃO FAST: Somente renderiza blocos que têm pelo menos uma face em contato com transparência ou ar
+        function isBlockOccludedFast(bx, by, bz) {
+            const opaque = (type) => {
+                if (type === undefined) return false;
+                if (type === 16 || type === 7 || type === 5) return false; 
+                return true;
+            };
+
+            return opaque(getBlockAtFast(bx + 1, by, bz)) &&
+                   opaque(getBlockAtFast(bx - 1, by, bz)) &&
+                   opaque(getBlockAtFast(bx, by + 1, bz)) &&
+                   opaque(getBlockAtFast(bx, by - 1, bz)) &&
+                   opaque(getBlockAtFast(bx, by, bz + 1)) &&
+                   opaque(getBlockAtFast(bx, by, bz - 1));
         }
 
-        // Renderizador otimizado de instâncias de chunks em view distance
-        function updateSceneVoxelMeshes() {
-            for (const id in instancedMeshes) {
-                instancedMeshes[id].count = 0;
+        // NOVO RECONSTRUTOR DE CHUNK INDIVIDUAL: Otimização máxima!
+        // Recalcula apenas a malha geométrica de um chunk modificado/carregado, mantendo o resto intacto na GPU.
+        function rebuildChunkMeshes(cx, cz) {
+            const chunkKey = `${cx},${cz}`;
+            let chunk = loadedChunks[chunkKey];
+            if (!chunk) {
+                chunk = {
+                    group: new THREE.Group(),
+                    meshes: {},
+                    dirty: false
+                };
+                scene.add(chunk.group);
+                loadedChunks[chunkKey] = chunk;
             }
-            instanceLookup = {};
-            
+
+            // Descarta malhas antigas da GPU e as remove do grupo ThreeJS
+            for (const typeId in chunk.meshes) {
+                chunk.group.remove(chunk.meshes[typeId]);
+                chunk.meshes[typeId].dispose();
+            }
+            chunk.meshes = {};
+
+            const chunkBlocks = proceduralChunkCache[chunkKey];
+            if (!chunkBlocks) return;
+
+            // Agrupa coordenadas do chunk que estão ativas e visíveis
+            const blocksByType = {};
+            const startX = cx * CHUNK_SIZE;
+            const endX = startX + CHUNK_SIZE;
+            const startZ = cz * CHUNK_SIZE;
+            const endZ = startZ + CHUNK_SIZE;
+
+            // 1. Processa blocos gerados proceduralmente
+            for (const coordKey in chunkBlocks) {
+                const typeId = chunkBlocks[coordKey];
+                if (typeId === 0) continue;
+
+                // Evita renderizar blocos modificados (destruídos) pelo player
+                if (modifiedBlocks[coordKey] !== undefined) continue;
+
+                const [bx, by, bz] = coordKey.split(',').map(Number);
+                if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão ativa!
+
+                if (!blocksByType[typeId]) blocksByType[typeId] = [];
+                blocksByType[typeId].push({ x: bx, y: by, z: bz });
+            }
+
+            // 2. Mescla blocos modificados/construídos pelo jogador nesse chunk
+            for (const coordKey in modifiedBlocks) {
+                const [bx, by, bz] = coordKey.split(',').map(Number);
+                if (bx >= startX && bx < endX && bz >= startZ && bz < endZ) {
+                    const typeId = modifiedBlocks[coordKey];
+                    if (typeId === 0) continue; // Quebrado
+
+                    if (isBlockOccludedFast(bx, by, bz)) continue;
+
+                    if (!blocksByType[typeId]) blocksByType[typeId] = [];
+                    blocksByType[typeId].push({ x: bx, y: by, z: bz });
+                }
+            }
+
+            // 3. Constrói InstancedMeshes otimizados locais
             const tempMatrix = new THREE.Matrix4();
             const tempPos = new THREE.Vector3();
-            const counts = {};
-            for (const id in BLOCK_TYPES) counts[id] = 0;
 
+            for (const typeId in blocksByType) {
+                const blocks = blocksByType[typeId];
+                if (blocks.length === 0) continue;
+
+                const activeMat = potatoMode ? materialsPotato[typeId] : materialsTextured[typeId];
+                const imesh = new THREE.InstancedMesh(boxGeo, activeMat, blocks.length);
+                
+                imesh.userData = { cx, cz, typeId };
+                imesh.instanceBlocks = blocks; // Mapeia o ID de instância de volta à coordenada 3D
+
+                for (let i = 0; i < blocks.length; i++) {
+                    const b = blocks[i];
+                    tempPos.set(b.x + 0.5, b.y + 0.5, b.z + 0.5);
+                    tempMatrix.makeTranslation(tempPos.x, tempPos.y, tempPos.z);
+                    imesh.setMatrixAt(i, tempMatrix);
+                }
+
+                imesh.instanceMatrix.needsUpdate = true;
+                chunk.group.add(imesh);
+                chunk.meshes[typeId] = imesh;
+            }
+        }
+
+        // SISTEMA GLOBAL DE ATUALIZAÇÃO SUTIL: Descarte de chunks fora da distância de visão
+        function updateSceneVoxelMeshes() {
             const pcx = Math.floor(camera.position.x / CHUNK_SIZE);
             const pcz = Math.floor(camera.position.z / CHUNK_SIZE);
 
-            // Coletar chunks visíveis de acordo com viewDistance
+            // 1. Enfileira chunks visíveis
             for (let dx = -viewDistance; dx <= viewDistance; dx++) {
                 for (let dz = -viewDistance; dz <= viewDistance; dz++) {
                     const cx = pcx + dx;
                     const cz = pcz + dz;
                     const chunkKey = `${cx},${cz}`;
-
-                    if (!proceduralChunkCache[chunkKey]) {
-                        generateChunkData(cx, cz);
-                    }
-
-                    const chunkBlocks = proceduralChunkCache[chunkKey];
-                    const allCoords = new Set();
                     
-                    for (const key in chunkBlocks) allCoords.add(key);
-
-                    // Adicionar modificações dentro do escopo deste chunk
-                    const startX = cx * CHUNK_SIZE;
-                    const endX = startX + CHUNK_SIZE;
-                    const startZ = cz * CHUNK_SIZE;
-                    const endZ = startZ + CHUNK_SIZE;
-
-                    for (const key in modifiedBlocks) {
-                        const [bx, by, bz] = key.split(',').map(Number);
-                        if (bx >= startX && bx < endX && bz >= startZ && bz < endZ) {
-                            allCoords.add(key);
-                        }
-                    }
-
-                    // Renderizar as coordenadas reunidas aplicando Oclusão 3D
-                    for (const key of allCoords) {
-                        const [bx, by, bz] = key.split(',').map(Number);
-                        const typeId = getBlockAt(bx, by, bz);
-
-                        if (typeId !== undefined) {
-                            const isTransparent = (typeId == 7 || typeId == 16 || typeId == 5);
-                            if (!isTransparent && isBlockOccluded(bx, by, bz)) {
-                                continue; 
-                            }
-
-                            const mesh = instancedMeshes[typeId];
-                            if (mesh && counts[typeId] < MAX_BLOCKS) {
-                                const idx = counts[typeId];
-                                tempPos.set(bx + 0.5, by + 0.5, bz + 0.5);
-                                tempMatrix.makeTranslation(tempPos.x, tempPos.y, tempPos.z);
-                                mesh.setMatrixAt(idx, tempMatrix);
-
-                                instanceLookup[`${mesh.uuid}_${idx}`] = { x: bx, y: by, z: bz, type: typeId };
-                                counts[typeId]++;
-                                mesh.count = counts[typeId];
-                            }
-                        }
+                    if (!proceduralChunkCache[chunkKey]) {
+                        queueChunkForGradualGeneration(cx, cz);
+                    } else if (!loadedChunks[chunkKey]) {
+                        // Inicializa visualmente
+                        loadedChunks[chunkKey] = {
+                            group: new THREE.Group(),
+                            meshes: {},
+                            dirty: true
+                        };
+                        scene.add(loadedChunks[chunkKey].group);
                     }
                 }
             }
 
-            // Aplicar matrizes de renderização
-            for (const id in instancedMeshes) {
-                instancedMeshes[id].instanceMatrix.needsUpdate = true;
-                instancedMeshes[id].visible = instancedMeshes[id].count > 0;
-            }
+            // O Frustum Culling foi extraído para a função updateChunkVisibility() para rodar síncrono por frame!
 
-            let activeBlocksCount = 0;
-            for (const id in instancedMeshes) activeBlocksCount += instancedMeshes[id].count;
-            document.getElementById('hud-blocks-count').innerText = `Blocos: ${activeBlocksCount}`;
-            
-            const biome = getBiomeAt(Math.floor(camera.position.x), Math.floor(camera.position.z));
-            document.getElementById('hud-biome-status').innerText = `Bioma: ${
-                biome === 'desert' ? '🌵 Deserto' : 
-                biome === 'dense_forest' ? '🌲 Floresta Densa' :
-                biome === 'giant_ocean' ? '🌊 Mar Gigante' :
-                biome === 'sharp_mountains' ? '⛰️ Montanhas Pontiagudas' : '🌳 Colinas'
-            }`;
+            // 3. Atualização sutil dos contadores do HUD
+            let totalActiveBlocks = 0;
+            for (const key in loadedChunks) {
+                const chunk = loadedChunks[key];
+                if (chunk.group.visible) {
+                    for (const typeId in chunk.meshes) {
+                        totalActiveBlocks += chunk.meshes[typeId].count;
+                    }
+                }
+            }
+            document.getElementById('hud-blocks-count').innerText = `Blocos: ${totalActiveBlocks}`;
         }
 
-        // SIMULADOR DE ÁGUA DINÂMICA (Com limite de fluxo de até 3 blocos para não alagar o mapa!)
+        // SISTEMA DE SUJEIRA DE CHUNK LOCAL (DIRTY FLAGS)
+        // Quando um bloco muda, remarca apenas o chunk dele e os vizinhos fronteiriços para rebuild!
+        function markChunkAndNeighborsDirty(x, z) {
+            const cx = Math.floor(x / CHUNK_SIZE);
+            const cz = Math.floor(z / CHUNK_SIZE);
+            
+            const mark = (ccx, ccz) => {
+                const key = `${ccx},${ccz}`;
+                if (loadedChunks[key]) loadedChunks[key].dirty = true;
+            };
+
+            mark(cx, cz);
+            
+            // Sujeira fronteiriça
+            const lx = (x % CHUNK_SIZE + CHUNK_SIZE) % CHUNK_SIZE;
+            const lz = (z % CHUNK_SIZE + CHUNK_SIZE) % CHUNK_SIZE;
+            if (lx === 0) mark(cx - 1, cz);
+            if (lx === CHUNK_SIZE - 1) mark(cx + 1, cz);
+            if (lz === 0) mark(cx, cz - 1);
+            if (lz === CHUNK_SIZE - 1) mark(cx, cz + 1);
+        }
+
+        // PROTEÇÃO ATIVA
+        function healBedrockVoid() {
+            if (!isGameRunning || !currentWorld) return;
+            const px = Math.floor(camera.position.x);
+            const pz = Math.floor(camera.position.z);
+            let healed = false;
+            
+            for (let x = px - 10; x <= px + 10; x++) {
+                for (let z = pz - 10; z <= pz + 10; z++) {
+                    const block = getBlockAt(x, WORLD_MIN_Y, z);
+                    if (block === undefined || block !== 11) {
+                        modifiedBlocks[`${x},${WORLD_MIN_Y},${z}`] = 11;
+                        markChunkAndNeighborsDirty(x, z);
+                        healed = true;
+                    }
+                }
+            }
+            
+            if (healed) {
+                updateSceneVoxelMeshes();
+            }
+        }
+
+        // ULTRA OTIMIZAÇÃO DE ÁGUA FÍSICA: Usando Hash numérico rápido
         function simulateWaterPhysics() {
-            if (!isGameRunning) return;
+            if (!isGameRunning || activeWaterSourcesHash.size === 0) return;
             
             const px = Math.floor(camera.position.x);
             const py = Math.floor(camera.position.y);
             const pz = Math.floor(camera.position.z);
             
-            const rad = 24;
+            const rad = 20;
             const waterToPlace = [];
+            const sourcesToSleep = [];
 
-            // Estrutura para armazenar a origem/distância da água para controle de limite
-            for (let x = px - rad; x <= px + rad; x++) {
-                for (let y = Math.max(1, py - 8); y <= Math.min(WORLD_HEIGHT - 1, py + 8); y++) {
-                    for (let z = pz - rad; z <= pz + rad; z++) {
-                        if (getBlockAt(x, y, z) === 16) { 
-                            const below = getBlockAt(x, y - 1, z);
-                            
-                            // 1. Regra de Gravidade: Água sempre escorre para baixo primeiro
-                            if (below === undefined) {
-                                waterToPlace.push({ x, y: y - 1, z, dist: 0 });
-                                continue; 
-                            }
-                            
-                            // 2. Limite Lateral Inteligente (Evita alagamento infinito):
-                            // Só permite espalhar lateralmente se a fonte estiver perto de solo firme
-                            const keyAbove = `${x},${y+1},${z}`;
-                            const hasWaterAbove = (getBlockAt(x, y + 1, z) === 16);
-                            
-                            // Distância máxima horizontal de espalhamento de poça = 3 cubos
-                            const dist = 3;
-                            
-                            const sides = [
-                                { x: x + 1, y, z, dist: dist - 1 },
-                                { x: x - 1, y, z, dist: dist - 1 },
-                                { x, y, z: z + 1, dist: dist - 1 },
-                                { x, y, z: z - 1, dist: dist - 1 }
-                            ];
-                            
-                            for (let s of sides) {
-                                if (getBlockAt(s.x, s.y, s.z) === undefined) {
-                                    // Verifica se o bloco de origem não é uma poça isolada demais
-                                    waterToPlace.push(s);
-                                }
-                            }
+            activeWaterSourcesHash.forEach(hashKey => {
+                const [x, y, z] = decodeWaterKey(hashKey);
+                
+                if (Math.abs(x - px) > rad || Math.abs(y - py) > 8 || Math.abs(z - pz) > rad) {
+                    return; 
+                }
+
+                if (getBlockAt(x, y, z) !== 16) {
+                    sourcesToSleep.push(hashKey);
+                    return;
+                }
+
+                let moved = false;
+
+                if (y > WORLD_MIN_Y + 1) {
+                    const below = getBlockAt(x, y - 1, z);
+                    if (below === undefined) {
+                        waterToPlace.push({ x, y: y - 1, z });
+                        moved = true;
+                    }
+                }
+
+                if (!moved) {
+                    const sides = [
+                        { x: x + 1, y, z },
+                        { x: x - 1, y, z },
+                        { x, y, z: z + 1 },
+                        { x, y, z: z - 1 }
+                    ];
+
+                    for (let s of sides) {
+                        if (getBlockAt(s.x, s.y, s.z) === undefined) {
+                            waterToPlace.push(s);
+                            moved = true;
                         }
                     }
                 }
-            }
 
-            // APLICAÇÃO EM CUBOS GRUPADOS (Otimização para espalhamento mais rápido de 2x2 / 3x3)
+                if (!moved) {
+                    sourcesToSleep.push(hashKey);
+                }
+            });
+
+            sourcesToSleep.forEach(hash => {
+                activeWaterSourcesHash.delete(hash);
+            });
+
             if (waterToPlace.length > 0) {
                 let changed = false;
-                // Executa em lotes coordenados para economizar processador
-                const limit = Math.min(waterToPlace.length, 16);
+                const limit = Math.min(waterToPlace.length, 8); // Limite rígido de propagação por tick
                 for (let i = 0; i < limit; i++) {
                     const w = waterToPlace[i];
                     const key = `${w.x},${w.y},${w.z}`;
                     if (modifiedBlocks[key] === undefined) {
                         modifiedBlocks[key] = 16;
+                        markChunkAndNeighborsDirty(w.x, w.z);
+                        activeWaterSourcesHash.add(encodeWaterKey(w.x, w.y, w.z)); 
                         changed = true;
                     }
                 }
@@ -1423,23 +1627,44 @@
         function addBlock(x, y, z, typeId) {
             const key = `${x},${y},${z}`;
             modifiedBlocks[key] = typeId;
+            
+            markChunkAndNeighborsDirty(x, z);
+
+            if (typeId === 16) {
+                activeWaterSourcesHash.add(encodeWaterKey(x, y, z));
+            }
             updateSceneVoxelMeshes();
         }
 
         function removeBlock(x, y, z) {
             const key = `${x},${y},${z}`;
+            if (y === WORLD_MIN_Y) return;
+            
             modifiedBlocks[key] = 0; 
+            markChunkAndNeighborsDirty(x, z);
+            
+            const neighbors = [
+                {x: x+1, y, z}, {x: x-1, y, z},
+                {x, y: y+1, z}, {x, y: y-1, z},
+                {x, y, z: z+1}, {x, y, z: z-1}
+            ];
+            neighbors.forEach(n => {
+                if (getBlockAt(n.x, n.y, n.z) === 16) {
+                    activeWaterSourcesHash.add(encodeWaterKey(n.x, n.y, n.z));
+                }
+            });
+
             updateSceneVoxelMeshes();
         }
 
+        // Colisões AABB Deslizantes do Jogador
         function isSolidBlock(x, y, z) {
             const type = getBlockAt(x, y, z);
             if (type === undefined) return false;
-            if (type === 16) return false; // Água não colide como parede rígida
+            if (type === 16) return false; 
             return true;
         }
 
-        // Colisões AABB Deslizantes do Jogador
         function checkPlayerCollision(pos) {
             const minX = pos.x - playerRadius;
             const maxX = pos.x + playerRadius;
@@ -1578,7 +1803,7 @@
             lastSpaceTime = now;
         }
 
-        // DEBOUNCE DE CLIQUES (Coloca bloco substituindo a água diretamente)
+        // DEBOUNCE DE CLIQUES - ADAPTADO PARA NOVO SISTEMA CHUNK MESH
         function performVoxelAction(action) {
             const now = performance.now();
             if (now - lastActionTime < ACTION_COOLDOWN) {
@@ -1587,7 +1812,18 @@
             lastActionTime = now;
 
             raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-            const activeMeshes = Object.values(instancedMeshes).filter(m => m.visible);
+            
+            // Coleta todas as malhas instanciadas ativas em chunks carregados
+            const activeMeshes = [];
+            for (const key in loadedChunks) {
+                const chunk = loadedChunks[key];
+                if (chunk.group.visible) {
+                    for (const typeId in chunk.meshes) {
+                        activeMeshes.push(chunk.meshes[typeId]);
+                    }
+                }
+            }
+
             const intersects = raycaster.intersectObjects(activeMeshes);
 
             if (intersects.length > 0) {
@@ -1595,25 +1831,24 @@
                 const mesh = intersect.object;
                 const instanceId = intersect.instanceId;
                 
-                const voxelData = instanceLookup[`${mesh.uuid}_${instanceId}`];
-                if (!voxelData) return;
+                // Mapeamento direto de volta para coordenadas globais sem pesquisas caras
+                if (!mesh.instanceBlocks || !mesh.instanceBlocks[instanceId]) return;
+                const block = mesh.instanceBlocks[instanceId];
 
                 if (action === 'break') {
-                    removeBlock(voxelData.x, voxelData.y, voxelData.z);
+                    removeBlock(block.x, block.y, block.z);
                 } else if (action === 'place') {
-                    // CORREÇÃO DOS CLIQUES NA ÁGUA:
-                    // Se o bloco alvo clicado for água (16), colocamos o novo bloco DIRETAMENTE substituindo a água!
-                    if (voxelData.type === 16) {
-                        addBlock(voxelData.x, voxelData.y, voxelData.z, selectedBlockType);
+                    if (mesh.userData.typeId === 16) { // Substitui a água no mesmo frame
+                        addBlock(block.x, block.y, block.z, selectedBlockType);
                         return;
                     }
 
                     const normal = intersect.face.normal;
-                    const targetX = voxelData.x + Math.round(normal.x);
-                    const targetY = voxelData.y + Math.round(normal.y);
-                    const targetZ = voxelData.z + Math.round(normal.z);
+                    const targetX = block.x + Math.round(normal.x);
+                    const targetY = block.y + Math.round(normal.y);
+                    const targetZ = block.z + Math.round(normal.z);
 
-                    if (targetY < 0 || targetY >= WORLD_HEIGHT) return;
+                    if (targetY < WORLD_MIN_Y || targetY >= WORLD_MAX_Y) return;
 
                     const pX = Math.floor(camera.position.x);
                     const pY = Math.floor(camera.position.y);
@@ -1634,7 +1869,6 @@
         let moveDirection = { x: 0, y: 0 };
 
         function setupMobileHUD() {
-            isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             const mobControls = document.getElementById('mobile-controls');
 
             if (isMobile) {
@@ -1756,6 +1990,81 @@
             }
         }
 
+        // SISTEMA DE SELEÇÃO MANUAL DE MODO (PC ou Celular)
+        function initControlPreference() {
+            const savedPref = localStorage.getItem('mc_control_mode') || 'detect';
+            manualControlMode = savedPref;
+            applyControlPreference();
+        }
+
+        function setControlModeManual(mode) {
+            manualControlMode = mode;
+            localStorage.setItem('mc_control_mode', mode);
+            applyControlPreference();
+            
+            showCustomModal("Controles", `Modo de controle definido para: ${mode === 'pc' ? 'PC (WASD/Mouse)' : 'Toque (Mobile)'}`);
+        }
+
+        function applyControlPreference() {
+            const btnPc = document.getElementById('btn-set-pc');
+            const btnMob = document.getElementById('btn-set-mobile');
+
+            if (manualControlMode === 'pc') {
+                isMobile = false;
+                btnPc.classList.add('border-yellow-500');
+                btnPc.classList.remove('opacity-60');
+                btnMob.classList.remove('border-yellow-500');
+                btnMob.classList.add('opacity-60');
+            } else if (manualControlMode === 'mobile') {
+                isMobile = true;
+                btnPc.classList.remove('border-yellow-500');
+                btnPc.classList.add('opacity-60');
+                btnMob.classList.add('border-yellow-500'); // CORREÇÃO: Adicionado classList
+                btnMob.classList.remove('opacity-60');
+            } else {
+                isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                if (isMobile) {
+                    btnMob.classList.add('border-yellow-500');
+                    btnPc.classList.add('opacity-60');
+                } else {
+                    btnPc.classList.add('border-yellow-500');
+                    btnMob.classList.add('opacity-60');
+                }
+            }
+        }
+
+        // NOVO SISTEMA DE FRUSTUM CULLING SÍNCRONO (Roda a cada frame levemente)
+        // Resolve o problema de chunks invisíveis nas costas que não carregavam ao girar a câmera
+        function updateChunkVisibility() {
+            if (!isGameRunning || isInventoryOpen || isSettingsOpen) return;
+
+            const viewDir = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+            viewDir.y = 0;
+            viewDir.normalize();
+
+            const playerPos2D = new THREE.Vector2(camera.position.x, camera.position.z);
+            const pcx = Math.floor(camera.position.x / CHUNK_SIZE);
+            const pcz = Math.floor(camera.position.z / CHUNK_SIZE);
+
+            for (const key in loadedChunks) {
+                const chunk = loadedChunks[key];
+                const [cx, cz] = key.split(',').map(Number);
+
+                // Se o chunk estiver totalmente fora da visão angular (mais de 110º para trás), ocultamos sutilmente
+                if (cx !== pcx || cz !== pcz) {
+                    const chunkCenter = new THREE.Vector2((cx + 0.5) * CHUNK_SIZE, (cz + 0.5) * CHUNK_SIZE);
+                    const toChunk = chunkCenter.clone().sub(playerPos2D).normalize();
+                    const dot = viewDir.x * toChunk.x + viewDir.z * toChunk.y;
+                    
+                    if (dot < -0.5) { 
+                        chunk.group.visible = false;
+                        continue;
+                    }
+                }
+                chunk.group.visible = true;
+            }
+        }
+
         // MOTOR FÍSICO COM SUBSTEPS E SALVAMENTO DE COORDENADAS
         const lastTime = { t: performance.now() };
         let lastAutoSaveTime = 0;
@@ -1770,7 +2079,6 @@
             // ASSEGURA QUE NENHUM CHUNK AO REDOR DEIXE DE SPAWNAR
             const pcx = Math.floor(camera.position.x / CHUNK_SIZE);
             const pcz = Math.floor(camera.position.z / CHUNK_SIZE);
-            let forceUpdate = false;
             
             for (let dx = -1; dx <= 1; dx++) {
                 for (let dz = -1; dz <= 1; dz++) {
@@ -1778,13 +2086,15 @@
                     const cz = pcz + dz;
                     const chunkKey = `${cx},${cz}`;
                     if (!proceduralChunkCache[chunkKey]) {
-                        generateChunkData(cx, cz);
-                        forceUpdate = true;
+                        queueChunkForGradualGeneration(cx, cz);
                     }
                 }
             }
-            if (forceUpdate) {
-                updateSceneVoxelMeshes();
+
+            // CURADOR AUTOMÁTICO DE BEDROCK (Proteção Ativa a cada 500ms)
+            if (now - lastVoidHealTime > 500) {
+                healBedrockVoid();
+                lastVoidHealTime = now;
             }
 
             // SUBSTEPS DE FÍSICA PARA ESTABILIDADE
@@ -1891,6 +2201,19 @@
                 lastChunkX = pcx;
                 lastChunkZ = pcz;
                 updateSceneVoxelMeshes();
+
+                // DESCARREGA CHUNKS DISTANTES DA MEMÓRIA DA GPU (Garbage Collector Visual)
+                for (const key in loadedChunks) {
+                    const [cx, cz] = key.split(',').map(Number);
+                    if (Math.abs(cx - pcx) > viewDistance || Math.abs(cz - pcz) > viewDistance) {
+                        const chunk = loadedChunks[key];
+                        scene.remove(chunk.group);
+                        for (const typeId in chunk.meshes) {
+                            chunk.meshes[typeId].dispose(); // Libera buffers de atributos da GPU
+                        }
+                        delete loadedChunks[key];
+                    }
+                }
             }
 
             // SALVAMENTO AUTOMÁTICO DE COORDENADAS (Salva a cada 2 segundos no LocalStorage)
@@ -1906,8 +2229,8 @@
                 lastAutoSaveTime = now;
             }
 
-            // Teleporte de segurança
-            if (camera.position.y < -35) {
+            // Teleporte de segurança do limite inferior expandido (-115 para dar margem à Bedrock de -100)
+            if (camera.position.y < WORLD_MIN_Y - 15) {
                 resetPlayerPosition();
             }
 
@@ -1915,6 +2238,15 @@
             const posY = Math.floor(camera.position.y);
             const posZ = Math.floor(camera.position.z);
             document.getElementById('hud-coords').innerText = `Pos: X: ${posX} | Y: ${posY} | Z: ${posZ} (Chunk: ${pcx}, ${pcz})`;
+
+            // ATUALIZAÇÃO SÍNCRONA DE BIOMA NO HUD (Evita travar em "Calculando...")
+            const currentBiome = getBiomeAt(posX, posZ);
+            document.getElementById('hud-biome-status').innerText = `Bioma: ${
+                currentBiome === 'desert' ? '🌵 Deserto' : 
+                currentBiome === 'dense_forest' ? '🌲 Floresta Densa' :
+                currentBiome === 'giant_ocean' ? '🌊 Mar Gigante' :
+                currentBiome === 'sharp_mountains' ? '⛰️ Montanhas Pontiagudas' : '🌳 Colinas'
+            }`;
         }
 
         // HOTBAR E HUD
@@ -1929,14 +2261,14 @@
 
                 const slot = document.createElement('div');
                 slot.id = `hotbar-slot-${i}`;
-                slot.className = `hotbar-slot w-10 h-10 md:w-12 md:h-12 border-2 border-[#5c5c5c] bg-[#3a3a3a] flex flex-col items-center justify-center relative cursor-pointer`;
+                slot.className = `hotbar-slot w-10 h-10 md:w-11 md:h-11 border-2 border-[#5c5c5c] bg-[#3a3a3a] flex flex-col items-center justify-center relative cursor-pointer`;
                 
                 if (i === activeHotbarIndex) {
                     slot.classList.add('selected');
                 }
 
                 slot.innerHTML = `
-                    <div class="pixel-texture-preview w-8 h-8 md:w-10 md:h-10" style="background-image: url('${dataUrl}')"></div>
+                    <div class="pixel-texture-preview w-8 h-8 md:w-9 md:h-9" style="background-image: url('${dataUrl}')"></div>
                     <span class="absolute bottom-0 right-1 text-[8px] font-minecraft text-white/70 font-bold">${i + 1}</span>
                 `;
 
@@ -1994,8 +2326,8 @@
             const dataUrl = blockTexturesUI[activeBlockId] || '';
 
             indicator.innerHTML = `
-                <div class="pixel-texture-preview w-6 h-6 border border-white/20" style="background-image: url('${dataUrl}')"></div>
-                <span class="font-minecraft text-[10px]">Slot ${activeHotbarIndex + 1}: ${spec.name}</span>
+                <div class="pixel-texture-preview w-5 h-5 border border-white/20" style="background-image: url('${dataUrl}')"></div>
+                <span class="font-minecraft text-[9px]">Slot ${activeHotbarIndex + 1}: ${spec.name}</span>
             `;
         }
 
@@ -2011,8 +2343,8 @@
                 item.className = 'bg-[#4a4a4a] hover:bg-[#5c5c5c] border-2 border-black p-2 rounded cursor-pointer flex flex-col items-center justify-between text-center gap-1 transition-transform active:scale-95';
                 
                 item.innerHTML = `
-                    <div class="pixel-texture-preview w-10 h-10 shadow-lg border border-black/30" style="background-image: url('${dataUrl}')"></div>
-                    <span class="text-[8px] font-minecraft font-semibold truncate w-full text-gray-200 mt-1">${spec.name}</span>
+                    <div class="pixel-texture-preview w-8 h-8 shadow-lg border border-black/30" style="background-image: url('${dataUrl}')"></div>
+                    <span class="text-[7px] font-minecraft font-semibold truncate w-full text-gray-200 mt-1">${spec.name}</span>
                 `;
 
                 item.onclick = () => {
@@ -2076,7 +2408,6 @@
             biomePreference = newBiomePref;
             cloudsEnabled = newClouds;
 
-            // Ativa/Desativa o Modo Batata
             if (newPotato !== potatoMode) {
                 potatoMode = newPotato;
                 updateMaterialsPotatoMode();
@@ -2095,6 +2426,7 @@
 
             if (forceTerrainRebuild) {
                 proceduralChunkCache = {}; 
+                chunkGenerationQueue = []; 
             }
 
             updateSceneVoxelMeshes();
@@ -2146,10 +2478,19 @@
 
             proceduralChunkCache = {};
             modifiedBlocks = {};
+            chunkGenerationQueue = []; 
+            activeWaterSourcesHash.clear(); 
 
             if (!isNew) {
                 try {
                     modifiedBlocks = JSON.parse(world.blocks);
+                    
+                    for (let key in modifiedBlocks) {
+                        if (modifiedBlocks[key] === 16) {
+                            const [wx, wy, wz] = key.split(',').map(Number);
+                            activeWaterSourcesHash.add(encodeWaterKey(wx, wy, wz));
+                        }
+                    }
                 } catch (e) {
                     modifiedBlocks = {};
                 }
@@ -2181,6 +2522,16 @@
         }
 
         function exitToMainMenu() {
+            if (currentWorld) {
+                window.saveWorldToStorage(
+                    currentWorld.id,
+                    currentWorld.name,
+                    modifiedBlocks,
+                    biomePreference,
+                    currentWorldSeedString
+                );
+            }
+
             document.exitPointerLock();
             isGameRunning = false;
             currentWorld = null;
@@ -2223,14 +2574,47 @@
             }
         }
 
-        // RENDER LOOP
+        // RENDER LOOP E TRACKING DE FPS
         function gameLoop() {
             requestAnimationFrame(gameLoop);
 
             if (isGameRunning) {
-                updatePlayerPhysics();
-                
+                // 1. RECONSTRÓI NO MÁXIMO 1 CHUNK "SUJO" POR QUADRO (Previne engasgos e picos de CPU!)
+                let rebuiltAny = false;
+                for (const key in loadedChunks) {
+                    if (loadedChunks[key].dirty) {
+                        const [cx, cz] = key.split(',').map(Number);
+                        rebuildChunkMeshes(cx, cz);
+                        loadedChunks[key].dirty = false;
+                        rebuiltAny = true;
+                        break; 
+                    }
+                }
+
+                // 2. Tracking de FPS
+                fpsCounter++;
                 const now = performance.now();
+                if (now - lastFpsTime >= 1000) {
+                    const fps = Math.round((fpsCounter * 1000) / (now - lastFpsTime));
+                    document.getElementById('hud-fps-status').innerText = `FPS: ${fps}`;
+                    
+                    if (fps < 50) {
+                        currentGenerationBudget = 1; 
+                    } else {
+                        currentGenerationBudget = 2; 
+                    }
+                    
+                    fpsCounter = 0;
+                    lastFpsTime = now;
+                }
+
+                processGradualChunkGeneration();
+
+                updatePlayerPhysics();
+
+                // NOVO: Executa a otimização de visibilidade síncrona por frame
+                updateChunkVisibility();
+                
                 if (now - lastWaterSimTime > WATER_SIM_INTERVAL) {
                     simulateWaterPhysics();
                     lastWaterSimTime = now;
@@ -2243,6 +2627,7 @@
         }
 
         window.onload = function() {
+            initControlPreference();
             gameLoop();
         };
     </script>
