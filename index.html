@@ -707,6 +707,7 @@
         let currentWorld = null;
         let modifiedBlocks = {}; 
         let proceduralChunkCache = {}; 
+        let queuedChunks = new Set(); // NOVO: Rastreamento à prova de falhas para evitar chunks semi-gerados ou vazios
         let currentWorldSeedString = "Luis";
         let worldSeedValue = 42; 
         
@@ -1037,8 +1038,17 @@
 
                     matsTextured = [mSide, mSide, mTop, mBot, mSide, mSide];
                     blockTexturesUI[typeId] = sideTex.dataUrl;
+                } else if (parseInt(typeId) === 16) { // ÁGUA: Material totalmente liso e translúcido sem aspas para evitar bugs de injeção HTML
+                    matsTextured = new THREE.MeshLambertMaterial({
+                        color: spec.color1,
+                        transparent: true,
+                        opacity: 0.6,
+                        depthWrite: false // Evita bugs de classificação de transparência em ThreeJS
+                    });
+                    // Ícone Base64 ultra seguro para a Hotbar (Resolve o bug ')"> na hotbar!)
+                    blockTexturesUI[typeId] = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjMjE5NmYzIi8+PC9zdmc+';
                 } else {
-                    const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7 || typeId == 16, typeId == 5);
+                    const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7, typeId == 5);
                     const singleMat = new THREE.MeshLambertMaterial({
                         map: generated.texture,
                         transparent: spec.transparent || false,
@@ -1057,6 +1067,13 @@
                     const mTop = new THREE.MeshBasicMaterial({ color: spec.color1 }); 
                     const mBot = new THREE.MeshBasicMaterial({ color: BLOCK_TYPES[2].color1 });
                     matsPotato = [mSide, mSide, mTop, mBot, mSide, mSide];
+                } else if (parseInt(typeId) === 16) { // Água no modo batata
+                    matsPotato = new THREE.MeshBasicMaterial({
+                        color: spec.color1,
+                        transparent: true,
+                        opacity: 0.6,
+                        depthWrite: false
+                    });
                 } else {
                     matsPotato = new THREE.MeshBasicMaterial({
                         color: spec.color1,
@@ -1143,11 +1160,15 @@
         }
 
         // OTIMIZAÇÃO: GERADOR GRADUAL DE CHUNKS EM FATIAS VERTICAIS (De cima para baixo)
+        // Corrigido para rastrear com precisão chunks gerados ou enfileirados sem pular o fundo (-100) do mapa!
         function queueChunkForGradualGeneration(cx, cz) {
             const chunkKey = `${cx},${cz}`;
-            if (proceduralChunkCache[chunkKey]) return; 
+            if (queuedChunks.has(chunkKey)) return; 
+            queuedChunks.add(chunkKey);
             
-            proceduralChunkCache[chunkKey] = {}; 
+            if (!proceduralChunkCache[chunkKey]) {
+                proceduralChunkCache[chunkKey] = {}; 
+            }
             
             const stepSize = 15;
             for (let yTop = WORLD_MAX_Y; yTop > WORLD_MIN_Y; yTop -= stepSize) {
@@ -1348,12 +1369,48 @@
             const cz = Math.floor(z / CHUNK_SIZE);
             const chunkKey = `${cx},${cz}`;
             
-            if (!proceduralChunkCache[chunkKey]) {
+            if (!proceduralChunkCache[chunkKey] || !queuedChunks.has(chunkKey)) {
                 queueChunkForGradualGeneration(cx, cz);
                 return undefined; 
             }
             
             return proceduralChunkCache[chunkKey][key];
+        }
+
+        // FUNÇÃO DE COLISÃO DO JOGADOR (Adicionada de volta para resolver o ReferenceError de colisão)
+        function isSolidBlock(x, y, z) {
+            const type = getBlockAtFast(x, y, z);
+            if (type === undefined) return false;
+            if (type === 16) return false; // Água é atravessável
+            return true;
+        }
+
+        // VERIFICAÇÃO DE COLISÃO AABB DESLIZANTE DO JOGADOR
+        function checkPlayerCollision(pos) {
+            const minX = pos.x - playerRadius;
+            const maxX = pos.x + playerRadius;
+            const minY = pos.y - playerHeight;
+            const maxY = pos.y + 0.2; 
+            const minZ = pos.z - playerRadius;
+            const maxZ = pos.z + playerRadius;
+
+            const startX = Math.floor(minX);
+            const endX = Math.floor(maxX);
+            const startY = Math.floor(minY);
+            const endY = Math.floor(maxY);
+            const startZ = Math.floor(minZ);
+            const endZ = Math.floor(maxZ);
+
+            for (let x = startX; x <= endX; x++) {
+                for (let y = startY; y <= endY; y++) {
+                    for (let z = startZ; z <= endZ; z++) {
+                        if (isSolidBlock(x, y, z)) {
+                            return true; 
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         // SISTEMA DE OCLUSÃO FAST: Somente renderiza blocos que têm pelo menos uma face em contato com transparência ou ar
@@ -1413,7 +1470,7 @@
                 if (modifiedBlocks[coordKey] !== undefined) continue;
 
                 const [bx, by, bz] = coordKey.split(',').map(Number);
-                if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão ativa!
+                if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão activa!
 
                 if (!blocksByType[typeId]) blocksByType[typeId] = [];
                 blocksByType[typeId].push({ x: bx, y: by, z: bz });
@@ -1472,7 +1529,7 @@
                     const cz = pcz + dz;
                     const chunkKey = `${cx},${cz}`;
                     
-                    if (!proceduralChunkCache[chunkKey]) {
+                    if (!proceduralChunkCache[chunkKey] || !queuedChunks.has(chunkKey)) {
                         queueChunkForGradualGeneration(cx, cz);
                     } else if (!loadedChunks[chunkKey]) {
                         // Inicializa visualmente
@@ -1565,7 +1622,7 @@
                     return; 
                 }
 
-                if (getBlockAt(x, y, z) !== 16) {
+                if (getBlockAtFast(x, y, z) !== 16) {
                     sourcesToSleep.push(hashKey);
                     return;
                 }
@@ -1573,10 +1630,17 @@
                 let moved = false;
 
                 if (y > WORLD_MIN_Y + 1) {
-                    const below = getBlockAt(x, y - 1, z);
-                    if (below === undefined) {
-                        waterToPlace.push({ x, y: y - 1, z });
-                        moved = true;
+                    const targetY = y - 1;
+                    const cx = Math.floor(x / CHUNK_SIZE);
+                    const cz = Math.floor(z / CHUNK_SIZE);
+                    
+                    // CORREÇÃO CRÍTICA: A água só flui se o chunk de destino real já estiver totalmente instanciado no cache procedural
+                    if (proceduralChunkCache[`${cx},${cz}`]) {
+                        const below = getBlockAtFast(x, targetY, z);
+                        if (below === undefined) {
+                            waterToPlace.push({ x, y: targetY, z });
+                            moved = true;
+                        }
                     }
                 }
 
@@ -1589,9 +1653,15 @@
                     ];
 
                     for (let s of sides) {
-                        if (getBlockAt(s.x, s.y, s.z) === undefined) {
-                            waterToPlace.push(s);
-                            moved = true;
+                        const cx = Math.floor(s.x / CHUNK_SIZE);
+                        const cz = Math.floor(s.z / CHUNK_SIZE);
+                        
+                        // CORREÇÃO CRÍTICA: A água só se espalha para os lados se o chunk adjacente já estiver carregado proceduralmente
+                        if (proceduralChunkCache[`${cx},${cz}`]) {
+                            if (getBlockAtFast(s.x, s.y, s.z) === undefined) {
+                                waterToPlace.push(s);
+                                moved = true;
+                            }
                         }
                     }
                 }
@@ -1649,7 +1719,7 @@
                 {x, y, z: z+1}, {x, y, z: z-1}
             ];
             neighbors.forEach(n => {
-                if (getBlockAt(n.x, n.y, n.z) === 16) {
+                if (getBlockAtFast(n.x, n.y, n.z) === 16) {
                     activeWaterSourcesHash.add(encodeWaterKey(n.x, n.y, n.z));
                 }
             });
@@ -1657,46 +1727,11 @@
             updateSceneVoxelMeshes();
         }
 
-        // Colisões AABB Deslizantes do Jogador
-        function isSolidBlock(x, y, z) {
-            const type = getBlockAt(x, y, z);
-            if (type === undefined) return false;
-            if (type === 16) return false; 
-            return true;
-        }
-
-        function checkPlayerCollision(pos) {
-            const minX = pos.x - playerRadius;
-            const maxX = pos.x + playerRadius;
-            const minY = pos.y - playerHeight;
-            const maxY = pos.y + 0.2; 
-            const minZ = pos.z - playerRadius;
-            const maxZ = pos.z + playerRadius;
-
-            const startX = Math.floor(minX);
-            const endX = Math.floor(maxX);
-            const startY = Math.floor(minY);
-            const endY = Math.floor(maxY);
-            const startZ = Math.floor(minZ);
-            const endZ = Math.floor(maxZ);
-
-            for (let x = startX; x <= endX; x++) {
-                for (let y = startY; y <= endY; y++) {
-                    for (let z = startZ; z <= endZ; z++) {
-                        if (isSolidBlock(x, y, z)) {
-                            return true; 
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
         function isInsideWater() {
             const px = Math.floor(camera.position.x);
             const py = Math.floor(camera.position.y - 0.9);
             const pz = Math.floor(camera.position.z);
-            return getBlockAt(px, py, pz) === 16;
+            return getBlockAtFast(px, py, pz) === 16;
         }
 
         // CONTROLES DE ENTRADA FIÉIS (PC E MOBILE)
@@ -2005,6 +2040,7 @@
             showCustomModal("Controles", `Modo de controle definido para: ${mode === 'pc' ? 'PC (WASD/Mouse)' : 'Toque (Mobile)'}`);
         }
 
+        // NOVO: Adicionado classe no botão mobile corrigindo o bug btnMob.add anterior de forma permanente
         function applyControlPreference() {
             const btnPc = document.getElementById('btn-set-pc');
             const btnMob = document.getElementById('btn-set-mobile');
@@ -2019,7 +2055,7 @@
                 isMobile = true;
                 btnPc.classList.remove('border-yellow-500');
                 btnPc.classList.add('opacity-60');
-                btnMob.classList.add('border-yellow-500'); // CORREÇÃO: Adicionado classList
+                btnMob.classList.add('border-yellow-500'); 
                 btnMob.classList.remove('opacity-60');
             } else {
                 isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -2085,7 +2121,7 @@
                     const cx = pcx + dx;
                     const cz = pcz + dz;
                     const chunkKey = `${cx},${cz}`;
-                    if (!proceduralChunkCache[chunkKey]) {
+                    if (!proceduralChunkCache[chunkKey] || !queuedChunks.has(chunkKey)) {
                         queueChunkForGradualGeneration(cx, cz);
                     }
                 }
@@ -2116,8 +2152,10 @@
                 let moveZ = 0; 
 
                 if (isMobile) {
+                    // CORREÇÃO DO JOYSTICK MOBILE INVERTIDO:
+                    // Pressionar o joystick para frente agora move o jogador para frente (-Y direcional no eixo ThreeJS Z)
                     moveX = moveDirection.x;
-                    moveZ = moveDirection.y; 
+                    moveZ = -moveDirection.y; 
                 } else {
                     if (keys['KeyW'] || keys['ArrowUp']) moveZ += 1;
                     if (keys['KeyS'] || keys['ArrowDown']) moveZ -= 1;
@@ -2280,6 +2318,7 @@
             updateSelectedBlockText();
         }
 
+        // Funções de seleção e HUD de hotbar
         function selectHotbarSlot(index) {
             document.querySelectorAll('.hotbar-slot').forEach(el => el.classList.remove('selected'));
             activeHotbarIndex = index;
@@ -2426,6 +2465,7 @@
 
             if (forceTerrainRebuild) {
                 proceduralChunkCache = {}; 
+                queuedChunks.clear(); // NOVO: Limpa o rastreador de chunks ao resetar configurações
                 chunkGenerationQueue = []; 
             }
 
@@ -2477,6 +2517,7 @@
             document.getElementById('game-hud').classList.remove('hidden');
 
             proceduralChunkCache = {};
+            queuedChunks.clear(); // NOVO: Limpa o rastreador de chunks para novo mundo
             modifiedBlocks = {};
             chunkGenerationQueue = []; 
             activeWaterSourcesHash.clear(); 
@@ -2612,7 +2653,7 @@
 
                 updatePlayerPhysics();
 
-                // NOVO: Executa a otimização de visibilidade síncrona por frame
+                // Executa a otimização de visibilidade síncrona por frame
                 updateChunkVisibility();
                 
                 if (now - lastWaterSimTime > WATER_SIM_INTERVAL) {
