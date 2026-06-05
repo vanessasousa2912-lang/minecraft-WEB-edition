@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Minecraft JS - Criativo Infinito Pro Ultra</title>
+    <title>Minecraft JS-WEB</title>
+    <!-- Favicon gerado dinamicamente com SVG -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="none" stroke="black" stroke-width="8"/><rect width="100" height="35" fill="%2315803d"/><rect y="35" width="100" height="65" fill="%2392400e"/></svg>'>
+    
     <!-- Tailwind CSS para estilização moderna -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font-Awesome para ícones do menu -->
@@ -114,47 +117,47 @@
 
     <div id="welcome-menu" class="absolute inset-0 bg-minecraft-dirt z-50 flex flex-col justify-between p-6 overflow-y-auto">
         
-        <!-- Header / Logo -->
+        <!-- Cabeçalho / Logótipo -->
         <div class="flex flex-col items-center mt-8 text-center">
             <h1 class="font-minecraft text-3xl md:text-5xl text-shadow font-bold tracking-wider text-[#81c784] drop-shadow-[0_5px_0_rgba(27,94,32,1)] uppercase">
                 MINECRAFT
             </h1>
             <div class="font-minecraft text-lg md:text-xl text-yellow-400 mt-2 rotate-[-3deg] animate-pulse">
-                JS - ULTRA OTIMIZADO!
+                WEB-JS - ULTRA OTIMIZADO!
             </div>
         </div>
 
-        <!-- Seção Principal de Conteúdo do Menu -->
+        <!-- Secção Principal de Conteúdo do Menu -->
         <div class="max-w-2xl w-full mx-auto my-auto flex flex-col gap-6">
             
-            <!-- Caixa de Boas-Vindas e Status -->
+            <!-- Caixa de Boas-vindas e Estado -->
             <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 text-center">
                 <p class="text-xs md:text-sm text-gray-300">
-                    Otimizado no nível de hardware! Renderização inteligente por Chunks, descarte de geometrias ocluidas de alta performance e salvamento instantâneo do mundo.
+                    Otimizado ao nível do hardware! Renderização inteligente por Chunks, descarte de geometrias ocluidas de alta performance e salvamento instantâneo do mundo.
                 </p>
                 <div id="auth-status" class="mt-2 flex items-center justify-center gap-2 text-xs text-yellow-500 font-semibold">
                     <i class="fa-solid fa-cloud"></i>
-                    <span>Iniciando armazenamento persistente local...</span>
+                    <span>A iniciar armazenamento persistente local...</span>
                 </div>
             </div>
 
             <!-- SELETOR MANUAL DE MODO (PC / MOBILE) -->
             <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 flex flex-col gap-2">
-                <span class="font-minecraft text-[10px] md:text-xs text-yellow-400 text-center block mb-1">Escolha seu tipo de controle:</span>
+                <span class="font-minecraft text-[10px] md:text-xs text-yellow-400 text-center block mb-1">Escolha o seu tipo de controlo:</span>
                 <div class="grid grid-cols-2 gap-4">
                     <button id="btn-set-pc" onclick="setControlModeManual('pc')" class="py-2 btn-minecraft font-minecraft text-[10px] rounded text-white border-yellow-500">
-                        🖥️ PC (WASD/Mouse)
+                        🖥️ PC (WASD/Rato)
                     </button>
                     <button id="btn-set-mobile" onclick="setControlModeManual('mobile')" class="py-2 btn-minecraft font-minecraft text-[10px] rounded text-white opacity-60">
-                        📱 Toque (Celular)
+                        📱 Toque (Telemóvel)
                     </button>
                 </div>
             </div>
 
-            <!-- Lista de Mundos Salvos -->
+            <!-- Lista de Mundos Guardados -->
             <div class="bg-black/60 border-2 border-[#4a4a4a] rounded-lg p-4 flex flex-col gap-3">
                 <div class="flex justify-between items-center border-b border-[#3a3a3a] pb-2">
-                    <span class="font-minecraft text-[10px] md:text-xs text-gray-300">Mundos Salvos</span>
+                    <span class="font-minecraft text-[10px] md:text-xs text-gray-300">Mundos Guardados</span>
                     <button onclick="openCreateWorldModal()" class="px-2 py-1 text-[10px] btn-minecraft rounded">
                         + Novo Mundo
                     </button>
@@ -162,7 +165,7 @@
                 
                 <div id="worlds-list" class="max-h-40 overflow-y-auto flex flex-col gap-2 pr-1">
                     <div class="text-center py-4 text-gray-500 text-xs">
-                        <i class="fa-solid fa-spinner animate-spin mr-2"></i> Carregando mundos...
+                        <i class="fa-solid fa-spinner animate-spin mr-2"></i> A carregar mundos...
                     </div>
                 </div>
             </div>
@@ -172,17 +175,17 @@
             </button>
         </div>
 
-        <!-- Footer com Instruções e Controles -->
+        <!-- Rodapé com Instruções e Controlos -->
         <div class="max-w-4xl w-full mx-auto mt-auto flex flex-col md:flex-row justify-between gap-4 border-t border-white/10 pt-4 text-[11px] text-gray-400">
             <div class="flex flex-col gap-1">
-                <span class="font-bold text-gray-200">⌨️ CONTROLES (PC):</span>
-                <span>• Andar: <b class="text-white">W A S D</b> | Olhar: <b class="text-white">Mouse</b></span>
+                <span class="font-bold text-gray-200">⌨️ CONTROLOS (PC):</span>
+                <span>• Andar: <b class="text-white">W A S D</b> | Olhar: <b class="text-white">Rato</b></span>
                 <span>• Colocar: <b class="text-white">Botão Direito</b> | Quebrar: <b class="text-white">Esquerdo</b></span>
-                <span>• Configurações: <b class="text-white">R</b> | Inventário: <b class="text-white">E</b></span>
+                <span>• Definições: <b class="text-white">R</b> | Inventário: <b class="text-white">E</b></span>
             </div>
             <div class="flex flex-col gap-1 md:text-right">
-                <span class="font-bold text-gray-200">📱 CONTROLES (MOBILE):</span>
-                <span>• Joystick esquerdo move, arrastar tela direita gira câmera</span>
+                <span class="font-bold text-gray-200">📱 CONTROLOS (MOBILE):</span>
+                <span>• Joystick esquerdo move, arrastar ecrã direito roda câmara</span>
                 <span>• Botões de toque ultra rápidos sem engasgos</span>
             </div>
         </div>
@@ -204,7 +207,7 @@
 
                 <label class="font-minecraft text-[9px] text-gray-300">Gerador Primário:</label>
                 <select id="world-generator-type" class="w-full bg-black/80 border-2 border-[#4a4a4a] text-white p-3 rounded font-minecraft text-xs focus:outline-none">
-                    <option value="mixed">Biomas Mistos (Colinas e Deserto)</option>
+                    <option value="mixed">Biomas Mistos (Todos os Biomas Juntos)</option>
                     <option value="hills">Apenas Colinas & Florestas</option>
                     <option value="desert">Apenas Deserto de Areia</option>
                     <option value="dense_forest">🌲 Floresta Densa</option>
@@ -251,15 +254,15 @@
 
     <!-- MODAL: CONFIGURAÇÕES -->
     <div id="settings-modal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[65] p-4">
-        <div class="bg-[#2c2c2c] border-4 border-[#4a4a4a] max-w-md w-full p-6 rounded-lg shadow-2xl flex flex-col gap-4">
+        <div class="bg-[#2c2c2c] border-4 border-black max-w-md w-full p-6 rounded-lg shadow-2xl flex flex-col gap-4">
             <div class="flex justify-between items-center border-b border-[#444] pb-2">
-                <h3 class="font-minecraft text-xs text-yellow-400"><i class="fa-solid fa-sliders mr-2"></i> Configurações [R]</h3>
+                <h3 class="font-minecraft text-xs text-yellow-400"><i class="fa-solid fa-sliders mr-2"></i> Definições [R]</h3>
                 <button onclick="toggleSettings()" class="text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="flex flex-col gap-3 text-[11px]">
                 <div class="flex justify-between items-center bg-black/40 p-2 border border-gray-700 rounded">
-                    <span class="font-minecraft text-[9px] text-gray-400">Seed Ativa:</span>
+                    <span class="font-minecraft text-[9px] text-gray-400">Semente Ativa:</span>
                     <span id="settings-seed-val" class="font-mono text-yellow-300 text-xs font-semibold">0</span>
                 </div>
 
@@ -293,7 +296,7 @@
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold text-gray-300">Modo de Bioma Ativo:</span>
                     <select id="setting-biome" class="w-full bg-black/60 border border-gray-600 rounded p-1.5 text-white">
-                        <option value="mixed">Misto (Colinas & Deserto)</option>
+                        <option value="mixed">Misto (Todos os Biomas Juntos)</option>
                         <option value="hills">Apenas Colinas / Floresta</option>
                         <option value="desert">Apenas Deserto de Areia</option>
                         <option value="dense_forest">🌲 Floresta Densa</option>
@@ -341,7 +344,7 @@
         <!-- Barra Superior: Info, Coordenadas e Menu de Pausa -->
         <div class="flex justify-between items-start w-full">
             <div class="bg-black/40 backdrop-blur-xs p-2 rounded text-[10px] font-mono flex flex-col gap-0.5 pointer-events-auto">
-                <div class="font-bold text-yellow-400 font-minecraft text-[7px] tracking-wide">Minecraft JS v2.1</div>
+                <div class="font-bold text-yellow-400 font-minecraft text-[7px] tracking-wide">Minecraft JS v4.7</div>
                 <div id="hud-coords">Pos: X: 0 | Y: 0 | Z: 0</div>
                 <div id="hud-blocks-count">Blocos: 0</div>
                 <div id="hud-flight-status" class="text-green-400 font-semibold">Voo: Desativado</div>
@@ -354,13 +357,13 @@
             <!-- Botões de ação rápida -->
             <div class="flex gap-2 pointer-events-auto">
                 <button id="hud-btn-settings" onclick="toggleSettings()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
-                    <i class="fa-solid fa-sliders"></i> Ajustes [R]
+                    <i class="fa-solid fa-sliders"></i> Definições [R]
                 </button>
                 <button id="hud-btn-inventory" onclick="toggleInventory()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1 bg-yellow-700">
                     <i class="fa-solid fa-box-archive"></i> Inventário [E]
                 </button>
                 <button onclick="saveCurrentWorld()" class="px-3 py-1.5 btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
-                    <i class="fa-solid fa-cloud-arrow-up"></i> Salvar
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Guardar
                 </button>
                 <button onclick="exitToMainMenu()" class="px-3 py-1.5 btn-minecraft-danger btn-minecraft rounded text-xs font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-door-open"></i> Sair
@@ -409,7 +412,7 @@
         <!-- Barra Inferior: Hotbar de Blocos -->
         <div class="w-full flex flex-col items-center gap-1.5 mt-auto">
             <div id="selected-block-name" class="font-minecraft text-[10px] text-shadow bg-black/50 px-2.5 py-0.5 rounded text-yellow-400">
-                Grama
+                Relva
             </div>
             
             <div class="flex items-center gap-1 bg-[#1e1e1e] border-4 border-[#4a4a4a] p-1 rounded-sm pointer-events-auto shadow-2xl shadow-black">
@@ -421,7 +424,7 @@
     <!-- Loader Geral -->
     <div id="action-spinner" class="hidden fixed inset-0 bg-black/50 z-[99] flex flex-col items-center justify-center gap-3">
         <i class="fa-solid fa-spinner animate-spin text-5xl text-yellow-500"></i>
-        <div id="spinner-text" class="font-minecraft text-xs text-yellow-400">Processando...</div>
+        <div id="spinner-text" class="font-minecraft text-xs text-yellow-400">A processar...</div>
     </div>
 
     <!-- CONTAINER 3D DO THREE.JS -->
@@ -430,7 +433,7 @@
     <!-- Carregar biblioteca Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Script principal de integração do Banco de Dados Firebase -->
+    <!-- Script de Integração e Jogabilidade Unificada -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -544,9 +547,9 @@
             }
         }
 
-        window.saveWorldToStorage = async function(worldId, worldName, blocksObject, generatorType, currentSeed) {
+        function saveWorldToStorage(worldId, worldName, blocksObject, generatorType, currentSeed) {
             document.getElementById('action-spinner').classList.remove('hidden');
-            document.getElementById('spinner-text').innerText = "Salvando progresso de forma permanente...";
+            document.getElementById('spinner-text').innerText = "A guardar progresso...";
 
             const blocksString = JSON.stringify(blocksObject);
             const worldData = {
@@ -569,22 +572,23 @@
             if (db && userId && authenticated) {
                 try {
                     const worldDocRef = doc(db, 'artifacts', appId, 'users', userId, 'worlds', worldId);
-                    await setDoc(worldDocRef, worldData);
-                    showCustomModal("Sucesso", "Mundo salvo com sucesso!");
+                    setDoc(worldDocRef, worldData).then(() => {
+                        showCustomModal("Sucesso", "Mundo guardado com sucesso!");
+                    });
                 } catch (err) {
-                    showCustomModal("Salvo no Dispositivo", "Sua obra foi armazenada localmente com sucesso.");
+                    showCustomModal("Guardado no Dispositivo", "A sua obra foi guardada localmente com sucesso.");
                 }
             } else {
-                showCustomModal("Salvo no Dispositivo", "Sua obra foi armazenada localmente com sucesso.");
+                showCustomModal("Guardado no Dispositivo", "A sua obra foi guardada localmente com sucesso.");
             }
 
             document.getElementById('action-spinner').classList.add('hidden');
             loadWorldsUI();
         }
 
-        window.deleteWorldFromStorage = async function(worldId) {
+        function deleteWorldFromStorage(worldId) {
             document.getElementById('action-spinner').classList.remove('hidden');
-            document.getElementById('spinner-text').innerText = "Excluindo mundo...";
+            document.getElementById('spinner-text').innerText = "A apagar mundo...";
 
             localWorlds = localWorlds.filter(w => w.id !== worldId);
             saveWorldsListToLocalStorage(); 
@@ -594,13 +598,14 @@
             if (db && userId && authenticated) {
                 try {
                     const worldDocRef = doc(db, 'artifacts', appId, 'users', userId, 'worlds', worldId);
-                    await deleteDoc(worldDocRef);
-                    showCustomModal("Sucesso", "Mundo excluído.");
+                    deleteDoc(worldDocRef).then(() => {
+                        showCustomModal("Sucesso", "Mundo apagado.");
+                    });
                 } catch (err) {
-                    showCustomModal("Excluído", "Mundo removido.");
+                    showCustomModal("Apagado", "Mundo removido.");
                 }
             } else {
-                showCustomModal("Excluído", "Mundo excluído.");
+                showCustomModal("Apagado", "Mundo apagado.");
             }
 
             document.getElementById('action-spinner').classList.add('hidden');
@@ -614,7 +619,7 @@
             if (localWorlds.length === 0) {
                 listContainer.innerHTML = `
                     <div class="text-center py-4 text-gray-400 text-xs">
-                        Nenhum mundo salvo. Crie o seu primeiro mundo!
+                        Nenhum mundo guardado. Crie o seu primeiro mundo!
                     </div>
                 `;
                 return;
@@ -641,15 +646,15 @@
                 playBtn.className = 'px-2.5 py-1 btn-minecraft font-minecraft text-[9px] text-white rounded bg-green-700';
                 playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
                 playBtn.onclick = () => {
-                    window.launchWorldGame(world);
+                    launchWorldGame(world);
                 };
 
                 const delBtn = document.createElement('button');
                 delBtn.className = 'px-2 py-1 btn-minecraft btn-minecraft-danger rounded text-[9px]';
                 delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
                 delBtn.onclick = () => {
-                    if (confirm(`Excluir o mundo "${world.name}"?`)) {
-                        window.deleteWorldFromStorage(world.id);
+                    if (confirm(`Deseja apagar o mundo "${world.name}"?`)) {
+                        deleteWorldFromStorage(world.id);
                     }
                 };
 
@@ -662,15 +667,9 @@
             });
         }
 
-        if (auth) {
-            authenticate();
-        } else {
-            loadWorldsUI();
-        }
-    </script>
-
-    <script>
+        // ==========================================
         // CONFIGURAÇÕES DO MOTOR DO JOGO E CHUNKS
+        // ==========================================
         const CHUNK_SIZE = 16;
         const WORLD_MAX_Y = 16;
         const WORLD_MIN_Y = -100; 
@@ -682,7 +681,7 @@
 
         // Catálogo de blocos
         const BLOCK_TYPES = {
-            1: { name: "Grama", color1: "#4caf50", color2: "#2e7d32", isMulti: true },
+            1: { name: "Relva", color1: "#4caf50", color2: "#2e7d32", isMulti: true },
             2: { name: "Terra", color1: "#795548", color2: "#4e342e" },
             3: { name: "Pedra", color1: "#9e9e9e", color2: "#616161" },
             4: { name: "Madeira", color1: "#a1887f", color2: "#5d4037" },
@@ -707,7 +706,7 @@
         let currentWorld = null;
         let modifiedBlocks = {}; 
         let proceduralChunkCache = {}; 
-        let queuedChunks = new Set(); // NOVO: Rastreamento à prova de falhas para evitar chunks semi-gerados ou vazios
+        let queuedChunks = new Set(); // Rastreamento para evitar chunks semi-gerados ou vazios
         let currentWorldSeedString = "Luis";
         let worldSeedValue = 42; 
         
@@ -739,7 +738,7 @@
         // Configurações do ThreeJS
         let scene, camera, renderer;
         
-        // NOVO DESIGN ARQUITETÔNICO: Grupos e malhas de renderização divididos por CHUNK
+        // Grupos e malhas de renderização divididos por CHUNK
         let loadedChunks = {}; // Guarda { key: { group, meshes: { typeId: InstancedMesh }, dirty: boolean } }
 
         // Estrutura de Cache de Materiais para alternar rapidamente o Modo Batata
@@ -818,10 +817,28 @@
         }
 
         // Sistema de biomas
+        // Sistema procedural unificado para permitir que todos os biomas coexistam harmoniosamente no mesmo mapa!
         function getBiomeAt(x, z) {
             if (biomePreference !== "mixed") return biomePreference;
-            const bValue = Math.sin(x * 0.015 + worldSeedValue * 0.1) * Math.cos(z * 0.015 - worldSeedValue * 0.1);
-            return bValue > 0.08 ? "desert" : "hills";
+            
+            // Frequências largas de seno e cosseno para transições extremamente suaves de biomas colossais no horizonte
+            const noise1 = Math.sin(x * 0.005 + worldSeedValue * 0.13) * Math.cos(z * 0.005 - worldSeedValue * 0.17);
+            const noise2 = Math.sin(x * 0.008 - worldSeedValue * 0.23) * Math.sin(z * 0.008 + worldSeedValue * 0.29);
+            
+            if (noise1 < -0.35) {
+                return "giant_ocean";      // Depressões massivas viram mares gigantescos
+            } else if (noise1 > 0.42) {
+                return "sharp_mountains";  // Elevações extremas criam cordilheiras de montanhas pontiagudas
+            } else {
+                // Distribuição secundária de biomas terrestres normais
+                if (noise2 > 0.15) {
+                    return "desert";       // Zonas quentes viram desertos arenosos
+                } else if (noise2 < -0.15) {
+                    return "dense_forest"; // Zonas húmidas geram florestas densas e fechadas
+                } else {
+                    return "hills";        // Regiões de transição geram colinas tradicionais verdejantes
+                }
+            }
         }
 
         // Altura do terreno
@@ -948,7 +965,7 @@
         // COMPARTILHAMENTO DE GEOMETRIA GLOBAL (Evita alocação desnecessária por chunk)
         const boxGeo = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
-        // FUNÇÃO DE GERAÇÃO DE NUVENS 3D (Restaurada para corrigir o erro de ReferenceError)
+        // NOVO: Declarada a função de nuvens 3D que estava em falta para impedir erros de referência (ReferenceError)
         function createVoxelClouds() {
             if (cloudMesh) scene.remove(cloudMesh);
 
@@ -1038,15 +1055,24 @@
 
                     matsTextured = [mSide, mSide, mTop, mBot, mSide, mSide];
                     blockTexturesUI[typeId] = sideTex.dataUrl;
-                } else if (parseInt(typeId) === 16) { // ÁGUA: Material totalmente liso e translúcido sem aspas para evitar bugs de injeção HTML
-                    matsTextured = new THREE.MeshLambertMaterial({
+                } else if (parseInt(typeId) === 16) { 
+                    // ÁGUA: Material totalmente liso e translúcido, mas corrigido o bug de visualização das bordas!
+                    // Apenas a face superior (de cima) será azulada, e as faces laterais e inferiores ficam completamente invisíveis
+                    const mWaterTop = new THREE.MeshLambertMaterial({
                         color: spec.color1,
                         transparent: true,
                         opacity: 0.6,
-                        depthWrite: false // Evita bugs de classificação de transparência em ThreeJS
+                        depthWrite: false,
+                        side: THREE.DoubleSide
                     });
+                    const mInvisible = new THREE.MeshBasicMaterial({ visible: false });
+
+                    // Array de 6 materiais: px, nx, py, ny, pz, nz
+                    // Apenas py (+Y) recebe o shader de água visível DoubleSide
+                    matsTextured = [mInvisible, mInvisible, mWaterTop, mInvisible, mInvisible, mInvisible];
+                    
                     // Ícone Base64 ultra seguro para a Hotbar (Resolve o bug ')"> na hotbar!)
-                    blockTexturesUI[typeId] = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjMjE5NmYzIi8+PC9zdmc+';
+                    blockTexturesUI[typeId] = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBmaWxsPSIjMjE5NmYzIi8+PC9zdmc+';
                 } else {
                     const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7, typeId == 5);
                     const singleMat = new THREE.MeshLambertMaterial({
@@ -1067,13 +1093,16 @@
                     const mTop = new THREE.MeshBasicMaterial({ color: spec.color1 }); 
                     const mBot = new THREE.MeshBasicMaterial({ color: BLOCK_TYPES[2].color1 });
                     matsPotato = [mSide, mSide, mTop, mBot, mSide, mSide];
-                } else if (parseInt(typeId) === 16) { // Água no modo batata
-                    matsPotato = new THREE.MeshBasicMaterial({
+                } else if (parseInt(typeId) === 16) { 
+                    const mWaterTop = new THREE.MeshBasicMaterial({
                         color: spec.color1,
                         transparent: true,
                         opacity: 0.6,
-                        depthWrite: false
+                        depthWrite: false,
+                        side: THREE.DoubleSide
                     });
+                    const mInvisible = new THREE.MeshBasicMaterial({ visible: false });
+                    matsPotato = [mInvisible, mInvisible, mWaterTop, mInvisible, mInvisible, mInvisible];
                 } else {
                     matsPotato = new THREE.MeshBasicMaterial({
                         color: spec.color1,
@@ -1201,7 +1230,7 @@
                 if (task) {
                     generateChunkDataDirect(task.cx, task.cz, task.yBottom, task.yTop);
                     
-                    // CORREÇÃO CRÍTICA: Sempre que uma fatia do chunk é gerada, marca como "dirty" para forçar o redesenho imediato
+                    // CORREÇÃO CRÍTICA: Sempre que uma fatiado do chunk é gerada, marca como "dirty" para forçar o redesenho imediato
                     const key = `${task.cx},${task.cz}`;
                     if (loadedChunks[key]) {
                         loadedChunks[key].dirty = true;
@@ -1239,21 +1268,30 @@
                             cache[`${x},${y},${z}`] = 11; 
                         } else if (y < height - 2) {
                             const r = hash3D(x, y, z);
-                            if (r < 0.04) cache[`${x},${y},${z}`] = 14; 
-                            else if (r < 0.06 && y < 0) cache[`${x},${y},${z}`] = 13; 
-                            else if (r < 0.07 && y < -30) cache[`${x},${y},${z}`] = 9; 
-                            else cache[`${x},${y},${z}`] = 3; 
+                            
+                            // CORREÇÃO CRÍTICA DO LEITO DE AREIA:
+                            // Se o bloco gerado for terra ou pedra, mas estiver sob um nível de água (y < SEA_LEVEL),
+                            // transformamos os 2 blocos de terra superiores imediatamente abaixo da água em Areia (ID 10)!
+                            if (height < SEA_LEVEL && y >= height - 2) {
+                                cache[`${x},${y},${z}`] = 10; // 2 blocos de areia sob a água
+                            } else {
+                                if (r < 0.04) cache[`${x},${y},${z}`] = 14; 
+                                else if (r < 0.06 && y < 0) cache[`${x},${y},${z}`] = 13; 
+                                else if (r < 0.07 && y < -30) cache[`${x},${y},${z}`] = 9; 
+                                else cache[`${x},${y},${z}`] = 3; 
+                            }
                         } else if (y < height) {
-                            if (biome === 'desert' || biome === 'giant_ocean') {
-                                cache[`${x},${y},${z}`] = 10; 
+                            // Se for fundo de água (height <= SEA_LEVEL), substitui terra por areia
+                            if (biome === 'desert' || height <= SEA_LEVEL) {
+                                cache[`${x},${y},${z}`] = 10; // Areia debaixo da água
                             } else if (biome === 'sharp_mountains') {
                                 cache[`${x},${y},${z}`] = 3; 
                             } else {
                                 cache[`${x},${y},${z}`] = 2; 
                             }
                         } else if (y === height) {
-                            if (biome === 'desert' || biome === 'giant_ocean') {
-                                cache[`${x},${y},${z}`] = 10; 
+                            if (biome === 'desert' || height <= SEA_LEVEL) {
+                                cache[`${x},${y},${z}`] = 10; // Areia no leito/praia
                             } else if (biome === 'sharp_mountains') {
                                 cache[`${x},${y},${z}`] = 3; 
                             } else {
@@ -1377,7 +1415,7 @@
             return proceduralChunkCache[chunkKey][key];
         }
 
-        // FUNÇÃO DE COLISÃO DO JOGADOR (Adicionada de volta para resolver o ReferenceError de colisão)
+        // FUNÇÃO DE COLISÃO DO JOGADOR
         function isSolidBlock(x, y, z) {
             const type = getBlockAtFast(x, y, z);
             if (type === undefined) return false;
@@ -1470,7 +1508,19 @@
                 if (modifiedBlocks[coordKey] !== undefined) continue;
 
                 const [bx, by, bz] = coordKey.split(',').map(Number);
-                if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão activa!
+                
+                // CORREÇÃO CRÍTICA DE OCLUSÃO DA ÁGUA:
+                // Se o bloco for água (ID 16), aplicamos um fatiamento rígido:
+                // Ela SÓ renderiza a sua face superior se houver espaço vazio (ar) exatamente acima dela!
+                // Isso remove todas as bordas, lados e polígonos subaquáticos, deixando a água totalmente lisa.
+                if (typeId === 16) {
+                    const blockAbove = getBlockAtFast(bx, by + 1, bz);
+                    if (blockAbove !== undefined) {
+                        continue; // Oclui por completo se houver qualquer bloco no topo (incluindo outra água)
+                    }
+                } else {
+                    if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão ativa para blocos sólidos
+                }
 
                 if (!blocksByType[typeId]) blocksByType[typeId] = [];
                 blocksByType[typeId].push({ x: bx, y: by, z: bz });
@@ -1483,7 +1533,12 @@
                     const typeId = modifiedBlocks[coordKey];
                     if (typeId === 0) continue; // Quebrado
 
-                    if (isBlockOccludedFast(bx, by, bz)) continue;
+                    if (typeId === 16) {
+                        const blockAbove = getBlockAtFast(bx, by + 1, bz);
+                        if (blockAbove !== undefined) continue;
+                    } else {
+                        if (isBlockOccludedFast(bx, by, bz)) continue;
+                    }
 
                     if (!blocksByType[typeId]) blocksByType[typeId] = [];
                     blocksByType[typeId].push({ x: bx, y: by, z: bz });
@@ -2037,7 +2092,7 @@
             localStorage.setItem('mc_control_mode', mode);
             applyControlPreference();
             
-            showCustomModal("Controles", `Modo de controle definido para: ${mode === 'pc' ? 'PC (WASD/Mouse)' : 'Toque (Mobile)'}`);
+            showCustomModal("Controles", `Modo de controle definido para: ${mode === 'pc' ? 'PC (WASD/Rato)' : 'Toque (Telemóvel)'}`);
         }
 
         // NOVO: Adicionado classe no botão mobile corrigindo o bug btnMob.add anterior de forma permanente
@@ -2287,6 +2342,26 @@
             }`;
         }
 
+        // Funções de seleção e HUD de hotbar (Declaradas de forma síncrona e segura)
+        function updateSelectedBlockText() {
+            const spec = BLOCK_TYPES[selectedBlockType];
+            document.getElementById('selected-block-name').innerText = spec ? spec.name : "Desconhecido";
+        }
+
+        function selectHotbarSlot(index) {
+            document.querySelectorAll('.hotbar-slot').forEach(el => el.classList.remove('selected'));
+            activeHotbarIndex = index;
+            
+            const selectedSlot = document.getElementById(`hotbar-slot-${index}`);
+            if (selectedSlot) {
+                selectedSlot.classList.add('selected');
+            }
+
+            selectedBlockType = hotbarSlots[index];
+            updateSelectedBlockText();
+            updateInventoryActiveIndicator();
+        }
+
         // HOTBAR E HUD
         function setupHotbar() {
             const container = document.getElementById('hotbar-slots');
@@ -2316,26 +2391,6 @@
 
             selectedBlockType = hotbarSlots[activeHotbarIndex];
             updateSelectedBlockText();
-        }
-
-        // Funções de seleção e HUD de hotbar
-        function selectHotbarSlot(index) {
-            document.querySelectorAll('.hotbar-slot').forEach(el => el.classList.remove('selected'));
-            activeHotbarIndex = index;
-            
-            const selectedSlot = document.getElementById(`hotbar-slot-${index}`);
-            if (selectedSlot) {
-                selectedSlot.classList.add('selected');
-            }
-
-            selectedBlockType = hotbarSlots[index];
-            updateSelectedBlockText();
-            updateInventoryActiveIndicator();
-        }
-
-        function updateSelectedBlockText() {
-            const spec = BLOCK_TYPES[selectedBlockType];
-            document.getElementById('selected-block-name').innerText = spec ? spec.name : "Desconhecido";
         }
 
         // MODAL INVENTÁRIO
@@ -2465,7 +2520,7 @@
 
             if (forceTerrainRebuild) {
                 proceduralChunkCache = {}; 
-                queuedChunks.clear(); // NOVO: Limpa o rastreador de chunks ao resetar configurações
+                queuedChunks.clear(); // Limpa o rastreador de chunks ao resetar configurações
                 chunkGenerationQueue = []; 
             }
 
@@ -2504,10 +2559,10 @@
             };
 
             closeCreateWorldModal();
-            window.launchWorldGame(newWorld, true);
+            launchWorldGame(newWorld, true);
         }
 
-        window.launchWorldGame = function(world, isNew = false) {
+        function launchWorldGame(world, isNew = false) {
             currentWorld = world;
             biomePreference = world.generator || 'mixed';
             
@@ -2517,7 +2572,7 @@
             document.getElementById('game-hud').classList.remove('hidden');
 
             proceduralChunkCache = {};
-            queuedChunks.clear(); // NOVO: Limpa o rastreador de chunks para novo mundo
+            queuedChunks.clear(); // Limpa o rastreador de chunks para novo mundo
             modifiedBlocks = {};
             chunkGenerationQueue = []; 
             activeWaterSourcesHash.clear(); 
@@ -2549,7 +2604,7 @@
                     document.getElementById('canvas-container').click();
                 }, 500);
             }
-        };
+        }
 
         function saveCurrentWorld() {
             if (!currentWorld) return;
@@ -2594,7 +2649,7 @@
                 generator: 'mixed',
                 seed: randomSeed
             };
-            window.launchWorldGame(sandboxWorld, true);
+            launchWorldGame(sandboxWorld, true);
         }
 
         function showCustomModal(title, text) {
@@ -2666,6 +2721,21 @@
                 }
             }
         }
+
+        // Expor todas as funções para o escopo global "window" para que as chamadas inline do HTML funcionem perfeitamente!
+        window.setControlModeManual = setControlModeManual;
+        window.openCreateWorldModal = openCreateWorldModal;
+        window.closeCreateWorldModal = closeCreateWorldModal;
+        window.createNewWorld = createNewWorld;
+        window.startQuickGame = startQuickGame;
+        window.toggleSettings = toggleSettings;
+        window.toggleInventory = toggleInventory;
+        window.saveCurrentWorld = saveCurrentWorld;
+        window.exitToMainMenu = exitToMainMenu;
+        window.applySettings = applySettings;
+        window.closeCustomModal = closeCustomModal;
+        window.launchWorldGame = launchWorldGame;
+        window.updateSettingsUIValues = updateSettingsUIValues;
 
         window.onload = function() {
             initControlPreference();
