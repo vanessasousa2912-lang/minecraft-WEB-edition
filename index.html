@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Minecraft JS-WEB</title>
+
     <!-- Favicon de Alta Fidelidade em Estilo Bloco de Relva com Cantos Arredondados -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iIzc5NTU0OCIvPjxyZWN0IHg9IjIiIHk9IjEwIiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjNWQ0MDM3Ii8+PHJlY3QgeD0iOCIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM1ZDQwMzciLz48cmVjdCB4PSIxMiIgeT0iOCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzVkNDAzNyIvPjxyZWN0IHg9IjYiIHk9IjciIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM1ZDQwMzciLz48cmVjdCB4PSIxMSIgeT0iMTEiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM0ZTM0MmUiLz48cmVjdCB4PSIzIiB5PSIxMyIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzRlMzQyZSIvPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxNiIgaGVpZ2h0PSI0IiBmaWxsPSIjNGNhZjUwIi8+PHJlY3QgeD0iMSIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMSIgZmlsbD0iIzRjYWY1MCIvPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSIxIiBoZWlnaHQ9IjIiIGZpbGw9IiM0Y2FmNTAiLz48cmVjdCB4PSI3IiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIxIiBmaWxsPSIjNGNhZjUwIi8+PHJlY3QgeD0iMTEiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM0Y2FmNTAiLz48cmVjdCB4PSIxNCIgeT0iNCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0iIzRjYWY1MCIvPjxyZWN0IHg9IjIiIHk9IjEiIHdpZHRoPSIzIiBoZWlnaHQ9IjIiIGZpbGw9IiMyZTdkMzIiLz48cmVjdCB4PSIxMCIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzJlN2QzMiIvPjxyZWN0IHg9IjciIHk9IjEiIHdpZHRoPSIyIiBoZWlnaHQ9IjEiIGZpbGw9IiMyZTdkMzIiLz48cmVjdCB4PSIxMyIgeT0iMSIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzgxYzc4NCIvPjwvc3ZnPg==">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iIzc5NTU0OCIvPjxyZWN0IHg9IjIiIHk9IjEwIiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjNWQ0MDM3Ii8+PHJlY3QgeD0iOCIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM1ZDQwMzciLz48cmVjdCB4PSIxMiIgeT0iOCIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzVkNDAzNyIvPjxyZWN0IHg9IjYiIHk9IjciIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM1ZDQwMzciLz48cmVjdCB4PSIxMSIgeT0iMTEiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM0ZTM0MmUiLz48cmVjdCB4PSIzIiB5PSIxMyIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzRlMzQyZSIvPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxNiIgaGVpZ2h0PSI0IiBmaWxsPSIjNGNhZjUwIi8+PHJlY3QgeD0iMSIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMSIgZmlsbD0iIzRjYWY1MCIvPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSIxIiBoZWlnaHQ9IjIiIGZpbGw9IiM0Y2FmNTAiLz48cmVjdCB4PSI3IiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIxIiBmaWxsPSIjNGNhZjUwIi8+PHJlY3QgeD0iMTEiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM0Y2FmNTAiLz48cmVjdCB4PSIxIiwgeT0iNCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0iIzRjYWY1MCIvPjxyZWN0IHg9IjIiIHk9IjEiIHdpZHRoPSIzIiBoZWlnaHQ9IjIiIGZpbGw9IiMyZTdkMzIiLz48cmVjdCB4PSIxMCIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzJlN2QzMiIvPjxyZWN0IHg9IjciIHk9IjEiIHdpZHRoPSIyIiBoZWlnaHQ9IjEiIGZpbGw9IiMyZTdkMzIiLz48cmVjdCB4PSIxMyIgeT0iMSIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzgxYzc4NCIvPjwvc3ZnPg==">
     
     <!-- Tailwind CSS para estilização moderna -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -344,7 +345,7 @@
         <!-- Barra Superior: Info, Coordenadas e Menu de Pausa -->
         <div class="flex justify-between items-start w-full">
             <div class="bg-black/40 backdrop-blur-xs p-2 rounded text-[10px] font-mono flex flex-col gap-0.5 pointer-events-auto">
-                <div class="font-bold text-yellow-400 font-minecraft text-[7px] tracking-wide">Minecraft JS v4.7</div>
+                <div class="font-bold text-yellow-400 font-minecraft text-[7px] tracking-wide">Minecraft JS v5.5</div>
                 <div id="hud-coords">Pos: X: 0 | Y: 0 | Z: 0</div>
                 <div id="hud-blocks-count">Blocos: 0</div>
                 <div id="hud-flight-status" class="text-green-400 font-semibold">Voo: Desativado</div>
@@ -412,7 +413,7 @@
         <!-- Barra Inferior: Hotbar de Blocos -->
         <div class="w-full flex flex-col items-center gap-1.5 mt-auto">
             <div id="selected-block-name" class="font-minecraft text-[10px] text-shadow bg-black/50 px-2.5 py-0.5 rounded text-yellow-400">
-                Relva
+                grama
             </div>
             
             <div class="flex items-center gap-1 bg-[#1e1e1e] border-4 border-[#4a4a4a] p-1 rounded-sm pointer-events-auto shadow-2xl shadow-black">
@@ -653,9 +654,7 @@
                 delBtn.className = 'px-2 py-1 btn-minecraft btn-minecraft-danger rounded text-[9px]';
                 delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
                 delBtn.onclick = () => {
-                    if (confirm(`Deseja apagar o mundo "${world.name}"?`)) {
-                        deleteWorldFromStorage(world.id);
-                    }
+                    deleteWorldFromStorage(world.id);
                 };
 
                 actionsDiv.appendChild(playBtn);
@@ -671,7 +670,7 @@
         // CONFIGURAÇÕES DO MOTOR DO JOGO E CHUNKS
         // ==========================================
         const CHUNK_SIZE = 16;
-        const WORLD_MAX_Y = 16;
+        const WORLD_MAX_Y = 40; // Suporta árvores gigantes e montanhas sem cortes
         const WORLD_MIN_Y = -100; 
         const SEA_LEVEL = 5;
         const BLOCK_SIZE = 1;
@@ -681,7 +680,7 @@
 
         // Catálogo de blocos
         const BLOCK_TYPES = {
-            1: { name: "Relva", color1: "#4caf50", color2: "#2e7d32", isMulti: true },
+            1: { name: "grama", color1: "#4caf50", color2: "#2e7d32", isMulti: true },
             2: { name: "Terra", color1: "#795548", color2: "#4e342e" },
             3: { name: "Pedra", color1: "#9e9e9e", color2: "#616161" },
             4: { name: "Madeira", color1: "#a1887f", color2: "#5d4037" },
@@ -817,7 +816,6 @@
         }
 
         // Sistema de biomas
-        // Sistema procedural unificado para permitir que todos os biomas coexistam harmoniosamente no mesmo mapa!
         function getBiomeAt(x, z) {
             if (biomePreference !== "mixed") return biomePreference;
             
@@ -836,7 +834,7 @@
                 } else if (noise2 < -0.15) {
                     return "dense_forest"; // Zonas húmidas geram florestas densas e fechadas
                 } else {
-                    return "hills";        // Regiões de transição geram colinas tradicionais verdejantes
+                    return "hills";        // Regiões de transição geram colinas tradicionalais verdejantes
                 }
             }
         }
@@ -965,7 +963,17 @@
         // COMPARTILHAMENTO DE GEOMETRIA GLOBAL (Evita alocação desnecessária por chunk)
         const boxGeo = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
-        // NOVO: Declarada a função de nuvens 3D que estava em falta para impedir erros de referência (ReferenceError)
+        // Geometrias de face plana individuais para a água (Evita renderizar faces internas escondidas)
+        const faceGeometries = {
+            top: new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2).translate(0, 0.5, 0),
+            bottom: new THREE.PlaneGeometry(1, 1).rotateX(Math.PI / 2).translate(0, -0.5, 0),
+            left: new THREE.PlaneGeometry(1, 1).rotateY(-Math.PI / 2).translate(-0.5, 0, 0),
+            right: new THREE.PlaneGeometry(1, 1).rotateY(Math.PI / 2).translate(0.5, 0, 0),
+            front: new THREE.PlaneGeometry(1, 1).translate(0, 0, 0.5),
+            back: new THREE.PlaneGeometry(1, 1).rotateY(Math.PI).translate(0, 0, -0.5)
+        };
+
+        // GERAÇÃO DE NUVENS 3D
         function createVoxelClouds() {
             if (cloudMesh) scene.remove(cloudMesh);
 
@@ -986,7 +994,7 @@
             for (let c = 0; c < 12; c++) {
                 const cx = Math.random() * CHUNK_SIZE * 6 - CHUNK_SIZE * 3;
                 const cz = Math.random() * CHUNK_SIZE * 6 - CHUNK_SIZE * 3;
-                const cy = 20 + Math.random() * 2;
+                const cy = 35 + Math.random() * 2; // Ajustado ao novo teto do mundo
 
                 const sizeX = 5 + Math.floor(Math.random() * 10);
                 const sizeZ = 5 + Math.floor(Math.random() * 10);
@@ -1056,23 +1064,17 @@
                     matsTextured = [mSide, mSide, mTop, mBot, mSide, mSide];
                     blockTexturesUI[typeId] = sideTex.dataUrl;
                 } else if (parseInt(typeId) === 16) { 
-                    // ÁGUA: Material totalmente liso e translúcido, mas corrigido o bug de visualização das bordas!
-                    // Apenas a face superior (de cima) será azulada, e as faces laterais e inferiores ficam completamente invisíveis
-                    const mWaterTop = new THREE.MeshLambertMaterial({
-                        color: spec.color1,
+                    // ÁGUA: Material unificado translúcido de alta fidelidade
+                    matsTextured = new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(spec.color1),
                         transparent: true,
-                        opacity: 0.6,
+                        opacity: 0.55,
                         depthWrite: false,
                         side: THREE.DoubleSide
                     });
-                    const mInvisible = new THREE.MeshBasicMaterial({ visible: false });
-
-                    // Array de 6 materiais: px, nx, py, ny, pz, nz
-                    // Apenas py (+Y) recebe o shader de água visível DoubleSide
-                    matsTextured = [mInvisible, mInvisible, mWaterTop, mInvisible, mInvisible, mInvisible];
                     
-                    // Ícone Base64 ultra seguro para a Hotbar (Resolve o bug ')"> na hotbar!)
-                    blockTexturesUI[typeId] = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBmaWxsPSIjMjE5NmYzIi8+PC9zdmc+';
+                    // BALDE DE ÁGUA: Ícone em formato de SVG nativo para evitar bugs ou truncamentos de base64
+                    blockTexturesUI[typeId] = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='64' height='64' shape-rendering='crispEdges'><rect x='5' y='2' width='6' height='1' fill='%23555a5c'/><rect x='4' y='3' width='8' height='1' fill='%237f8c8d'/><rect x='3' y='4' width='10' height='1' fill='%237f8c8d'/><rect x='2' y='5' width='12' height='1' fill='%23555a5c'/><rect x='2' y='6' width='2' height='5' fill='%23555a5c'/><rect x='12' y='6' width='2' height='5' fill='%23555a5c'/><rect x='3' y='11' width='10' height='1' fill='%23555a5c'/><rect x='5' y='12' width='6' height='1' fill='%233a3a3c'/><rect x='4' y='5' width='8' height='1' fill='%231e79c2'/><rect x='3' y='6' width='10' height='5' fill='%233395df'/><rect x='4' y='7' width='2' height='2' fill='%235cebff'/><rect x='8' y='6' width='2' height='2' fill='%235cebff'/></svg>";
                 } else {
                     const generated = createPixelTexture(spec.color1, spec.color2, typeId == 7, typeId == 5);
                     const singleMat = new THREE.MeshLambertMaterial({
@@ -1094,15 +1096,13 @@
                     const mBot = new THREE.MeshBasicMaterial({ color: BLOCK_TYPES[2].color1 });
                     matsPotato = [mSide, mSide, mTop, mBot, mSide, mSide];
                 } else if (parseInt(typeId) === 16) { 
-                    const mWaterTop = new THREE.MeshBasicMaterial({
-                        color: spec.color1,
+                    matsPotato = new THREE.MeshBasicMaterial({
+                        color: new THREE.Color(spec.color1),
                         transparent: true,
-                        opacity: 0.6,
+                        opacity: 0.55,
                         depthWrite: false,
                         side: THREE.DoubleSide
                     });
-                    const mInvisible = new THREE.MeshBasicMaterial({ visible: false });
-                    matsPotato = [mInvisible, mInvisible, mWaterTop, mInvisible, mInvisible, mInvisible];
                 } else {
                     matsPotato = new THREE.MeshBasicMaterial({
                         color: spec.color1,
@@ -1165,9 +1165,30 @@
         }
 
         function resetPlayerPosition() {
-            const spawnX = 0;
-            const spawnZ = 0;
-            generateChunkDataDirect(0, 0, 0, 16); 
+            let spawnX = 0;
+            let spawnZ = 0;
+
+            // PROTEÇÃO ANTI-SPAWN NO OCEANO GIGANTE: Busca a terra firme mais próxima em espiral
+            let initialBiome = getBiomeAt(spawnX, spawnZ);
+            if (initialBiome === 'giant_ocean') {
+                let foundSafeLand = false;
+                for (let r = 5; r < 200 && !foundSafeLand; r += 5) {
+                    for (let angle = 0; angle < Math.PI * 2 && !foundSafeLand; angle += Math.PI / 8) {
+                        let testX = Math.round(Math.cos(angle) * r);
+                        let testZ = Math.round(Math.sin(angle) * r);
+                        if (getBiomeAt(testX, testZ) !== 'giant_ocean') {
+                            spawnX = testX;
+                            spawnZ = testZ;
+                            foundSafeLand = true;
+                        }
+                    }
+                }
+            }
+
+            // Garante que o chunk de spawn esteja gerado
+            const cx = Math.floor(spawnX / CHUNK_SIZE);
+            const cz = Math.floor(spawnZ / CHUNK_SIZE);
+            generateChunkDataDirect(cx, cz, WORLD_MIN_Y, WORLD_MAX_Y); 
 
             const biome = getBiomeAt(spawnX, spawnZ);
             const terrainY = getTerrainHeight(spawnX, spawnZ, biome);
@@ -1180,6 +1201,16 @@
                 }
             }
 
+            // --- PROTEÇÃO ANTI-SUFOCAMENTO / FICAR PRESO EM ÁRVORES ---
+            // Limpa qualquer bloco sólido de tronco ou folhas na posição exata onde o jogador vai materializar-se
+            const pyStart = Math.floor(highestBlockY + 1);
+            for (let yOffset = 0; yOffset <= 3; yOffset++) {
+                const checkY = pyStart + yOffset;
+                if (checkY < WORLD_MAX_Y) {
+                    modifiedBlocks[`${spawnX},${checkY},${spawnZ}`] = 0; // Remove folhas ou madeira que estivessem no caminho do spawn
+                }
+            }
+
             camera.position.set(spawnX + 0.5, highestBlockY + 1 + playerHeight, spawnZ + 0.5);
             camera.rotation.set(0, 0, 0);
             playerVelocity.set(0, 0, 0);
@@ -1189,7 +1220,6 @@
         }
 
         // OTIMIZAÇÃO: GERADOR GRADUAL DE CHUNKS EM FATIAS VERTICAIS (De cima para baixo)
-        // Corrigido para rastrear com precisão chunks gerados ou enfileirados sem pular o fundo (-100) do mapa!
         function queueChunkForGradualGeneration(cx, cz) {
             const chunkKey = `${cx},${cz}`;
             if (queuedChunks.has(chunkKey)) return; 
@@ -1230,7 +1260,7 @@
                 if (task) {
                     generateChunkDataDirect(task.cx, task.cz, task.yBottom, task.yTop);
                     
-                    // CORREÇÃO CRÍTICA: Sempre que uma fatiado do chunk é gerada, marca como "dirty" para forçar o redesenho imediato
+                    // CORREÇÃO CRÍTICA: Sempre que uma fatia do chunk é gerada, marca como "dirty" para forçar o redesenho imediato
                     const key = `${task.cx},${task.cz}`;
                     if (loadedChunks[key]) {
                         loadedChunks[key].dirty = true;
@@ -1270,10 +1300,8 @@
                             const r = hash3D(x, y, z);
                             
                             // CORREÇÃO CRÍTICA DO LEITO DE AREIA:
-                            // Se o bloco gerado for terra ou pedra, mas estiver sob um nível de água (y < SEA_LEVEL),
-                            // transformamos os 2 blocos de terra superiores imediatamente abaixo da água em Areia (ID 10)!
                             if (height < SEA_LEVEL && y >= height - 2) {
-                                cache[`${x},${y},${z}`] = 10; // 2 blocos de areia sob a água
+                                cache[`${x},${y},${z}`] = 10; 
                             } else {
                                 if (r < 0.04) cache[`${x},${y},${z}`] = 14; 
                                 else if (r < 0.06 && y < 0) cache[`${x},${y},${z}`] = 13; 
@@ -1281,9 +1309,8 @@
                                 else cache[`${x},${y},${z}`] = 3; 
                             }
                         } else if (y < height) {
-                            // Se for fundo de água (height <= SEA_LEVEL), substitui terra por areia
                             if (biome === 'desert' || height <= SEA_LEVEL) {
-                                cache[`${x},${y},${z}`] = 10; // Areia debaixo da água
+                                cache[`${x},${y},${z}`] = 10; 
                             } else if (biome === 'sharp_mountains') {
                                 cache[`${x},${y},${z}`] = 3; 
                             } else {
@@ -1291,7 +1318,7 @@
                             }
                         } else if (y === height) {
                             if (biome === 'desert' || height <= SEA_LEVEL) {
-                                cache[`${x},${y},${z}`] = 10; // Areia no leito/praia
+                                cache[`${x},${y},${z}`] = 10; 
                             } else if (biome === 'sharp_mountains') {
                                 cache[`${x},${y},${z}`] = 3; 
                             } else {
@@ -1303,6 +1330,7 @@
                         }
                     }
                     
+                    // Geração procedural de árvores
                     if (height > SEA_LEVEL && height >= yMin && height <= yMax) {
                         const seed = hash2D(x, z);
                         
@@ -1312,65 +1340,84 @@
                                 cache[`${x},${height+2},${z}`] = 15;
                                 if (seed < 0.01) cache[`${x},${height+3},${z}`] = 15;
                             }
-                        } else if (biome === 'dense_forest') {
-                            if (seed < 0.09) {
-                                const treeHeight = 5 + Math.floor(seed * 100) % 3;
-                                for (let ty = 1; ty <= treeHeight; ty++) {
-                                    cache[`${x},${height+ty},${z}`] = 4; 
-                                }
-                                
-                                const leafTop = height + treeHeight;
-                                for (let ly = -2; ly <= 1; ly++) {
-                                    const rad = ly >= 0 ? 1 : 2;
-                                    for (let lx = -rad; lx <= rad; lx++) {
-                                        for (let lz = -rad; lz <= rad; lz++) {
-                                            if (lx === 0 && lz === 0 && ly <= 0) continue;
-                                            
-                                            const gx = x + lx;
-                                            const gy = leafTop + ly;
-                                            const gz = z + lz;
-                                            
-                                            const tcx = Math.floor(gx / CHUNK_SIZE);
-                                            const tcz = Math.floor(gz / CHUNK_SIZE);
-                                            const targetChunkKey = `${tcx},${tcz}`;
-                                            
-                                            if (!proceduralChunkCache[targetChunkKey]) {
-                                                proceduralChunkCache[targetChunkKey] = {};
-                                            }
-                                            if (proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] === undefined) {
-                                                proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; 
+                        } else if (biome === 'dense_forest' || biome === 'hills' || biome === 'mixed') {
+                            const treeChance = biome === 'dense_forest' ? 0.09 : 0.015;
+                            
+                            if (seed < treeChance) {
+                                // REDUZIDO: Determina se é uma ÁRVORE RARA GIGANTE (Apenas 2% de probabilidade)
+                                const giantSeed = hash2D(x + 12, z - 12);
+                                const isGiantTree = (giantSeed < 0.02); 
+
+                                if (isGiantTree) {
+                                    // 1. ÁRVORE GIGANTE RARA (Tronco 3x maior: de 12 a 15 de altura)
+                                    const giantHeight = 12 + Math.floor(giantSeed * 100) % 4;
+                                    for (let ty = 1; ty <= giantHeight; ty++) {
+                                        if (height + ty < WORLD_MAX_Y) {
+                                            cache[`${x},${height+ty},${z}`] = 4; // Madeira de Carvalho
+                                        }
+                                    }
+                                    
+                                    // 2. Copa de folhas em formato de CONE (Estilo pinheiro gigante)
+                                    const leafTop = height + giantHeight;
+                                    for (let ly = -6; ly <= 5; ly++) {
+                                        // Fórmula matemática cónica: o raio diminui à medida que subimos (ly aumenta)
+                                        const rad = Math.max(0, Math.ceil(4 - (ly + 6) * 0.45));
+                                        
+                                        for (let lx = -rad; lx <= rad; lx++) {
+                                            for (let lz = -rad; lz <= rad; lz++) {
+                                                // Se for o centro e estiver abaixo do topo do tronco, preserva a madeira
+                                                if (lx === 0 && lz === 0 && ly <= 0) continue;
+                                                
+                                                // Corta os cantos das fatias quadradas para criar fatias cónicas circulares perfeitas
+                                                if (rad > 1 && (lx * lx + lz * lz) > rad * rad) continue;
+
+                                                const gx = x + lx;
+                                                const gy = leafTop + ly;
+                                                const gz = z + lz;
+
+                                                if (gy < WORLD_MIN_Y || gy >= WORLD_MAX_Y) continue;
+                                                
+                                                const tcx = Math.floor(gx / CHUNK_SIZE);
+                                                const tcz = Math.floor(gz / CHUNK_SIZE);
+                                                const targetChunkKey = `${tcx},${tcz}`;
+                                                
+                                                if (!proceduralChunkCache[targetChunkKey]) {
+                                                    proceduralChunkCache[targetChunkKey] = {};
+                                                }
+                                                if (proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] === undefined) {
+                                                    proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; // Folhas
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            }
-                        } else if (biome === 'hills' || biome === 'mixed') {
-                            if (seed < 0.015) {
-                                const treeHeight = 4 + Math.floor(seed * 100) % 2;
-                                for (let ty = 1; ty <= treeHeight; ty++) {
-                                    cache[`${x},${height+ty},${z}`] = 4; 
-                                }
-                                
-                                const leafTop = height + treeHeight;
-                                for (let ly = -2; ly <= 1; ly++) {
-                                    const rad = ly >= 0 ? 1 : 2;
-                                    for (let lx = -rad; lx <= rad; lx++) {
-                                        for (let lz = -rad; lz <= rad; lz++) {
-                                            if (lx === 0 && lz === 0 && ly <= 0) continue;
-                                            
-                                            const gx = x + lx;
-                                            const gy = leafTop + ly;
-                                            const gz = z + lz;
-                                            
-                                            const tcx = Math.floor(gx / CHUNK_SIZE);
-                                            const tcz = Math.floor(gz / CHUNK_SIZE);
-                                            const targetChunkKey = `${tcx},${tcz}`;
-                                            
-                                            if (!proceduralChunkCache[targetChunkKey]) {
-                                                proceduralChunkCache[targetChunkKey] = {};
-                                            }
-                                            if (proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] === undefined) {
-                                                proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; 
+                                } else {
+                                    // Árvore normal clássica de Minecraft
+                                    const treeHeight = 4 + Math.floor(seed * 100) % 2;
+                                    for (let ty = 1; ty <= treeHeight; ty++) {
+                                        cache[`${x},${height+ty},${z}`] = 4; 
+                                    }
+                                    
+                                    const leafTop = height + treeHeight;
+                                    for (let ly = -2; ly <= 1; ly++) {
+                                        const rad = ly >= 0 ? 1 : 2;
+                                        for (let lx = -rad; lx <= rad; lx++) {
+                                            for (let lz = -rad; lz <= rad; lz++) {
+                                                if (lx === 0 && lz === 0 && ly <= 0) continue;
+                                                
+                                                const gx = x + lx;
+                                                const gy = leafTop + ly;
+                                                const gz = z + lz;
+                                                
+                                                const tcx = Math.floor(gx / CHUNK_SIZE);
+                                                const tcz = Math.floor(gz / CHUNK_SIZE);
+                                                const targetChunkKey = `${tcx},${tcz}`;
+                                                
+                                                if (!proceduralChunkCache[targetChunkKey]) {
+                                                    proceduralChunkCache[targetChunkKey] = {};
+                                                }
+                                                if (proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] === undefined) {
+                                                    proceduralChunkCache[targetChunkKey][`${gx},${gy},${gz}`] = 5; 
+                                                }
                                             }
                                         }
                                     }
@@ -1383,7 +1430,6 @@
         }
 
         // OTIMIZAÇÃO CRÍTICA DE RETORNO DE BLOCOS FAST
-        // Evita enfileirar fatias procedurais durante testes de oclusão ou física
         function getBlockAtFast(x, y, z) {
             const key = `${x},${y},${z}`;
             if (modifiedBlocks[key] !== undefined) {
@@ -1396,6 +1442,7 @@
             return chunk[key];
         }
 
+        // RETORNO SEGURO DE BLOCOS
         function getBlockAt(x, y, z) {
             const key = `${x},${y},${z}`;
             
@@ -1419,7 +1466,7 @@
         function isSolidBlock(x, y, z) {
             const type = getBlockAtFast(x, y, z);
             if (type === undefined) return false;
-            if (type === 16) return false; // Água é atravessável
+            if (type === 16) return false; 
             return true;
         }
 
@@ -1467,8 +1514,7 @@
                    opaque(getBlockAtFast(bx, by, bz - 1));
         }
 
-        // NOVO RECONSTRUTOR DE CHUNK INDIVIDUAL: Otimização máxima!
-        // Recalcula apenas a malha geométrica de um chunk modificado/carregado, mantendo o resto intacto na GPU.
+        // RECONSTRUTOR DE CHUNK INDIVIDUAL EXTREMAMENTE OTIMIZADO (SEM GRELHAS INTERNAS)
         function rebuildChunkMeshes(cx, cz) {
             const chunkKey = `${cx},${cz}`;
             let chunk = loadedChunks[chunkKey];
@@ -1509,21 +1555,27 @@
 
                 const [bx, by, bz] = coordKey.split(',').map(Number);
                 
-                // CORREÇÃO CRÍTICA DE OCLUSÃO DA ÁGUA:
-                // Se o bloco for água (ID 16), aplicamos um fatiamento rígido:
-                // Ela SÓ renderiza a sua face superior se houver espaço vazio (ar) exatamente acima dela!
-                // Isso remove todas as bordas, lados e polígonos subaquáticos, deixando a água totalmente lisa.
+                // RENDERIZADOR DE ÁGUA INTELIGENTE (SEM GRELHAS):
+                // Só renderiza a face do cubo se o vizinho direto nessa direção NÃO for água (ID 16)!
                 if (typeId === 16) {
-                    const blockAbove = getBlockAtFast(bx, by + 1, bz);
-                    if (blockAbove !== undefined) {
-                        continue; // Oclui por completo se houver qualquer bloco no topo (incluindo outra água)
-                    }
+                    const checkFace = (nx, ny, nz, faceKey) => {
+                        const neighbor = getBlockAtFast(nx, ny, nz);
+                        if (neighbor !== 16) {
+                            if (!blocksByType[faceKey]) blocksByType[faceKey] = [];
+                            blocksByType[faceKey].push({ x: bx, y: by, z: bz });
+                        }
+                    };
+                    checkFace(bx, by + 1, bz, "16_top");
+                    checkFace(bx, by - 1, bz, "16_bottom");
+                    checkFace(bx + 1, by, bz, "16_right");
+                    checkFace(bx - 1, by, bz, "16_left");
+                    checkFace(bx, by, bz + 1, "16_front");
+                    checkFace(bx, by, bz - 1, "16_back");
                 } else {
-                    if (isBlockOccludedFast(bx, by, bz)) continue; // Oclusão ativa para blocos sólidos
+                    if (isBlockOccludedFast(bx, by, bz)) continue; 
+                    if (!blocksByType[typeId]) blocksByType[typeId] = [];
+                    blocksByType[typeId].push({ x: bx, y: by, z: bz });
                 }
-
-                if (!blocksByType[typeId]) blocksByType[typeId] = [];
-                blocksByType[typeId].push({ x: bx, y: by, z: bz });
             }
 
             // 2. Mescla blocos modificados/construídos pelo jogador nesse chunk
@@ -1531,17 +1583,27 @@
                 const [bx, by, bz] = coordKey.split(',').map(Number);
                 if (bx >= startX && bx < endX && bz >= startZ && bz < endZ) {
                     const typeId = modifiedBlocks[coordKey];
-                    if (typeId === 0) continue; // Quebrado
+                    if (typeId === 0) continue; 
 
                     if (typeId === 16) {
-                        const blockAbove = getBlockAtFast(bx, by + 1, bz);
-                        if (blockAbove !== undefined) continue;
+                        const checkFace = (nx, ny, nz, faceKey) => {
+                            const neighbor = getBlockAtFast(nx, ny, nz);
+                            if (neighbor !== 16) {
+                                if (!blocksByType[faceKey]) blocksByType[faceKey] = [];
+                                blocksByType[faceKey].push({ x: bx, y: by, z: bz });
+                            }
+                        };
+                        checkFace(bx, by + 1, bz, "16_top");
+                        checkFace(bx, by - 1, bz, "16_bottom");
+                        checkFace(bx + 1, by, bz, "16_right");
+                        checkFace(bx - 1, by, bz, "16_left");
+                        checkFace(bx, by, bz + 1, "16_front");
+                        checkFace(bx, by, bz - 1, "16_back");
                     } else {
                         if (isBlockOccludedFast(bx, by, bz)) continue;
+                        if (!blocksByType[typeId]) blocksByType[typeId] = [];
+                        blocksByType[typeId].push({ x: bx, y: by, z: bz });
                     }
-
-                    if (!blocksByType[typeId]) blocksByType[typeId] = [];
-                    blocksByType[typeId].push({ x: bx, y: by, z: bz });
                 }
             }
 
@@ -1553,11 +1615,24 @@
                 const blocks = blocksByType[typeId];
                 if (blocks.length === 0) continue;
 
-                const activeMat = potatoMode ? materialsPotato[typeId] : materialsTextured[typeId];
-                const imesh = new THREE.InstancedMesh(boxGeo, activeMat, blocks.length);
+                let geom = boxGeo;
+                let activeMat;
+                let finalTypeId = parseInt(typeId);
+
+                // Se for uma das faces de água, usa a geometria plana correspondente
+                if (typeId.startsWith("16_")) {
+                    finalTypeId = 16;
+                    const face = typeId.split("_")[1];
+                    geom = faceGeometries[face];
+                    activeMat = potatoMode ? materialsPotato[16] : materialsTextured[16];
+                } else {
+                    activeMat = potatoMode ? materialsPotato[typeId] : materialsTextured[typeId];
+                }
+
+                const imesh = new THREE.InstancedMesh(geom, activeMat, blocks.length);
                 
-                imesh.userData = { cx, cz, typeId };
-                imesh.instanceBlocks = blocks; // Mapeia o ID de instância de volta à coordenada 3D
+                imesh.userData = { cx, cz, typeId: finalTypeId };
+                imesh.instanceBlocks = blocks; 
 
                 for (let i = 0; i < blocks.length; i++) {
                     const b = blocks[i];
@@ -1587,7 +1662,6 @@
                     if (!proceduralChunkCache[chunkKey] || !queuedChunks.has(chunkKey)) {
                         queueChunkForGradualGeneration(cx, cz);
                     } else if (!loadedChunks[chunkKey]) {
-                        // Inicializa visualmente
                         loadedChunks[chunkKey] = {
                             group: new THREE.Group(),
                             meshes: {},
@@ -1597,8 +1671,6 @@
                     }
                 }
             }
-
-            // O Frustum Culling foi extraído para a função updateChunkVisibility() para rodar síncrono por frame!
 
             // 3. Atualização sutil dos contadores do HUD
             let totalActiveBlocks = 0;
@@ -1614,7 +1686,6 @@
         }
 
         // SISTEMA DE SUJEIRA DE CHUNK LOCAL (DIRTY FLAGS)
-        // Quando um bloco muda, remarca apenas o chunk dele e os vizinhos fronteiriços para rebuild!
         function markChunkAndNeighborsDirty(x, z) {
             const cx = Math.floor(x / CHUNK_SIZE);
             const cz = Math.floor(z / CHUNK_SIZE);
@@ -1689,7 +1760,6 @@
                     const cx = Math.floor(x / CHUNK_SIZE);
                     const cz = Math.floor(z / CHUNK_SIZE);
                     
-                    // CORREÇÃO CRÍTICA: A água só flui se o chunk de destino real já estiver totalmente instanciado no cache procedural
                     if (proceduralChunkCache[`${cx},${cz}`]) {
                         const below = getBlockAtFast(x, targetY, z);
                         if (below === undefined) {
@@ -1711,7 +1781,6 @@
                         const cx = Math.floor(s.x / CHUNK_SIZE);
                         const cz = Math.floor(s.z / CHUNK_SIZE);
                         
-                        // CORREÇÃO CRÍTICA: A água só se espalha para os lados se o chunk adjacente já estiver carregado proceduralmente
                         if (proceduralChunkCache[`${cx},${cz}`]) {
                             if (getBlockAtFast(s.x, s.y, s.z) === undefined) {
                                 waterToPlace.push(s);
@@ -1732,7 +1801,7 @@
 
             if (waterToPlace.length > 0) {
                 let changed = false;
-                const limit = Math.min(waterToPlace.length, 8); // Limite rígido de propagação por tick
+                const limit = Math.min(waterToPlace.length, 8); 
                 for (let i = 0; i < limit; i++) {
                     const w = waterToPlace[i];
                     const key = `${w.x},${w.y},${w.z}`;
@@ -1921,14 +1990,13 @@
                 const mesh = intersect.object;
                 const instanceId = intersect.instanceId;
                 
-                // Mapeamento direto de volta para coordenadas globais sem pesquisas caras
                 if (!mesh.instanceBlocks || !mesh.instanceBlocks[instanceId]) return;
                 const block = mesh.instanceBlocks[instanceId];
 
                 if (action === 'break') {
                     removeBlock(block.x, block.y, block.z);
                 } else if (action === 'place') {
-                    if (mesh.userData.typeId === 16) { // Substitui a água no mesmo frame
+                    if (mesh.userData.typeId === 16) { 
                         addBlock(block.x, block.y, block.z, selectedBlockType);
                         return;
                     }
@@ -2095,7 +2163,6 @@
             showCustomModal("Controles", `Modo de controle definido para: ${mode === 'pc' ? 'PC (WASD/Rato)' : 'Toque (Telemóvel)'}`);
         }
 
-        // NOVO: Adicionado classe no botão mobile corrigindo o bug btnMob.add anterior de forma permanente
         function applyControlPreference() {
             const btnPc = document.getElementById('btn-set-pc');
             const btnMob = document.getElementById('btn-set-mobile');
@@ -2124,8 +2191,7 @@
             }
         }
 
-        // NOVO SISTEMA DE FRUSTUM CULLING SÍNCRONO (Roda a cada frame levemente)
-        // Resolve o problema de chunks invisíveis nas costas que não carregavam ao girar a câmera
+        // SISTEMA DE FRUSTUM CULLING SÍNCRONO (Roda a cada frame levemente)
         function updateChunkVisibility() {
             if (!isGameRunning || isInventoryOpen || isSettingsOpen) return;
 
@@ -2141,7 +2207,6 @@
                 const chunk = loadedChunks[key];
                 const [cx, cz] = key.split(',').map(Number);
 
-                // Se o chunk estiver totalmente fora da visão angular (mais de 110º para trás), ocultamos sutilmente
                 if (cx !== pcx || cz !== pcz) {
                     const chunkCenter = new THREE.Vector2((cx + 0.5) * CHUNK_SIZE, (cz + 0.5) * CHUNK_SIZE);
                     const toChunk = chunkCenter.clone().sub(playerPos2D).normalize();
@@ -2167,7 +2232,6 @@
 
             if (!isGameRunning || isInventoryOpen || isSettingsOpen) return;
 
-            // ASSEGURA QUE NENHUM CHUNK AO REDOR DEIXE DE SPAWNAR
             const pcx = Math.floor(camera.position.x / CHUNK_SIZE);
             const pcz = Math.floor(camera.position.z / CHUNK_SIZE);
             
@@ -2207,8 +2271,6 @@
                 let moveZ = 0; 
 
                 if (isMobile) {
-                    // CORREÇÃO DO JOYSTICK MOBILE INVERTIDO:
-                    // Pressionar o joystick para frente agora move o jogador para frente (-Y direcional no eixo ThreeJS Z)
                     moveX = moveDirection.x;
                     moveZ = -moveDirection.y; 
                 } else {
@@ -2302,7 +2364,7 @@
                         const chunk = loadedChunks[key];
                         scene.remove(chunk.group);
                         for (const typeId in chunk.meshes) {
-                            chunk.meshes[typeId].dispose(); // Libera buffers de atributos da GPU
+                            chunk.meshes[typeId].dispose(); 
                         }
                         delete loadedChunks[key];
                     }
@@ -2322,7 +2384,6 @@
                 lastAutoSaveTime = now;
             }
 
-            // Teleporte de segurança do limite inferior expandido (-115 para dar margem à Bedrock de -100)
             if (camera.position.y < WORLD_MIN_Y - 15) {
                 resetPlayerPosition();
             }
@@ -2332,7 +2393,7 @@
             const posZ = Math.floor(camera.position.z);
             document.getElementById('hud-coords').innerText = `Pos: X: ${posX} | Y: ${posY} | Z: ${posZ} (Chunk: ${pcx}, ${pcz})`;
 
-            // ATUALIZAÇÃO SÍNCRONA DE BIOMA NO HUD (Evita travar em "Calculando...")
+            // ATUALIZAÇÃO SÍNCRONA DE BIOMA NO HUD 
             const currentBiome = getBiomeAt(posX, posZ);
             document.getElementById('hud-biome-status').innerText = `Bioma: ${
                 currentBiome === 'desert' ? '🌵 Deserto' : 
@@ -2520,7 +2581,7 @@
 
             if (forceTerrainRebuild) {
                 proceduralChunkCache = {}; 
-                queuedChunks.clear(); // Limpa o rastreador de chunks ao resetar configurações
+                queuedChunks.clear(); 
                 chunkGenerationQueue = []; 
             }
 
@@ -2572,7 +2633,7 @@
             document.getElementById('game-hud').classList.remove('hidden');
 
             proceduralChunkCache = {};
-            queuedChunks.clear(); // Limpa o rastreador de chunks para novo mundo
+            queuedChunks.clear(); 
             modifiedBlocks = {};
             chunkGenerationQueue = []; 
             activeWaterSourcesHash.clear(); 
@@ -2606,9 +2667,12 @@
             }
         }
 
+        window.saveWorldToStorage = saveWorldToStorage;
+        window.deleteWorldFromStorage = deleteWorldFromStorage;
+
         function saveCurrentWorld() {
             if (!currentWorld) return;
-            window.saveWorldToStorage(
+            saveWorldToStorage(
                 currentWorld.id,
                 currentWorld.name,
                 modifiedBlocks,
@@ -2619,7 +2683,7 @@
 
         function exitToMainMenu() {
             if (currentWorld) {
-                window.saveWorldToStorage(
+                saveWorldToStorage(
                     currentWorld.id,
                     currentWorld.name,
                     modifiedBlocks,
@@ -2652,6 +2716,7 @@
             launchWorldGame(sandboxWorld, true);
         }
 
+        // MOSTRA MENSAGENS CUSTOMIZADAS DO MOTOR DO JOGO
         function showCustomModal(title, text) {
             document.getElementById('custom-modal-title').innerText = title;
             document.getElementById('custom-modal-body').innerText = text;
@@ -2675,7 +2740,7 @@
             requestAnimationFrame(gameLoop);
 
             if (isGameRunning) {
-                // 1. RECONSTRÓI NO MÁXIMO 1 CHUNK "SUJO" POR QUADRO (Previne engasgos e picos de CPU!)
+                // RECONSTRÓI NO MÁXIMO 1 CHUNK "SUJO" POR QUADRO 
                 let rebuiltAny = false;
                 for (const key in loadedChunks) {
                     if (loadedChunks[key].dirty) {
@@ -2687,7 +2752,7 @@
                     }
                 }
 
-                // 2. Tracking de FPS
+                // Tracking de FPS
                 fpsCounter++;
                 const now = performance.now();
                 if (now - lastFpsTime >= 1000) {
@@ -2708,7 +2773,6 @@
 
                 updatePlayerPhysics();
 
-                // Executa a otimização de visibilidade síncrona por frame
                 updateChunkVisibility();
                 
                 if (now - lastWaterSimTime > WATER_SIM_INTERVAL) {
@@ -2722,7 +2786,7 @@
             }
         }
 
-        // Expor todas as funções para o escopo global "window" para que as chamadas inline do HTML funcionem perfeitamente!
+        // Expor todas as funções para o escopo global "window"
         window.setControlModeManual = setControlModeManual;
         window.openCreateWorldModal = openCreateWorldModal;
         window.closeCreateWorldModal = closeCreateWorldModal;
